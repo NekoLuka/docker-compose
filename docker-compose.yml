@@ -1,0 +1,17 @@
+version: '3.3'
+
+services:
+  slapd:
+    user: root
+    image: bitnami/openldap
+    restart: always
+    environment:
+      LDAP_ADMIN_PASSWORD: Operator2022!
+      LDAP_ROOT: dc=homelab,dc=local
+      LDAP_CONFIG_ADMIN_ENABLED: 1
+      LDAP_CONFIG_ADMIN_USERNAME: configadmin
+    ports:
+      - 389:1389
+    volumes:
+      - ./loginUser.ldif:/custom/loginUser.ldif
+      - ./openldap-container:/bitnami/openldap/:rw

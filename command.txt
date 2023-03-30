@@ -1,0 +1,1 @@
+ldapadd -x -D cn=configadmin,cn=config -W -H ldap://localhost:1389 -f /custom/loginUser.ldif
