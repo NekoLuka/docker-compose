@@ -1,3 +1,4 @@
 openldap-container
 *.log
 sources.txt
+freeradius-data

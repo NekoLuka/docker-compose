@@ -15,3 +15,19 @@ services:
     volumes:
       - ./loginUser.ldif:/custom/loginUser.ldif
       - ./openldap-container:/bitnami/openldap/:rw
+    deploy:
+      resources:
+        limits:
+          memory: 10M
+  radius:
+    build: 
+      context: ./freeradius-ldap
+    restart: always
+    ports: 
+      - 1812:1812/udp
+    volumes:
+      - ./freeradius-ldap/ldap.conf:/etc/raddb/mods-available/ldap
+    deploy:
+      resources:
+        limits:
+          memory: 15M
