@@ -4,7 +4,7 @@ services:
   slapd:
     user: root
     image: bitnami/openldap
-    restart: always
+    restart: unless-stopped
     environment:
       LDAP_ADMIN_PASSWORD: Operator2022!
       LDAP_ROOT: dc=homelab,dc=local
@@ -22,7 +22,7 @@ services:
   radius:
     build: 
       context: ../freeradius-with-ldap-auth
-    restart: always
+    restart: unless-stopped
     ports: 
       - 1812:1812/udp
     volumes:
@@ -31,3 +31,20 @@ services:
       resources:
         limits:
           memory: 15M
+  pihole:
+    image: pihole/pihole
+    restart: unless-stopped
+    ports:
+      - 53:53/tcp
+      - 53:53/udp
+      - 80:80/tcp
+    environment:
+      TZ: Europe/Amsterdam
+      WEBPASSWORD: Operator2022!
+    volumes:
+      - ./etc-pihole:/etc-pihole
+      - ./etc-dnsmasq.d:/etc/dnsmasq.d
+    deploy:
+      resources:
+        limits:
+          memory: 30M
