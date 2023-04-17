@@ -14,7 +14,7 @@ services:
       - 389:1389
     volumes:
       - ./loginUser.ldif:/custom/loginUser.ldif
-      - ./openldap-container:/bitnami/openldap/:rw
+      - ./openldap-config:/bitnami/openldap/:rw
     deploy:
       resources:
         limits:
@@ -48,17 +48,22 @@ services:
       resources:
         limits:
           memory: 30M
-  heimdall:
-    image: lscr.io/linuxserver/heimdall:latest
+  wireguard:
+    image: lscr.io/linuxserver/wireguard:latest
+    cap_add:
+      - NET_ADMIN
+      - SYS_MODULE
     environment:
       TZ: Europe/Amsterdam
+      SERVERURL: 192.168.2.197
+      PEERS: myPC
+      ALLOWEDIPS: 10.13.13.0/24,10.10.255.0/24
+      LOG_CONFS: false
     volumes:
-      - ./heimdall-config:/config
+      - /usr/src:/lib/modules
+      - ./wireguard-config:/config
     ports:
-      - 8080:80
-      - 443:443
-    deploy:
-      resources:
-        limits:
-          memory: 40M
+      - 51820:51820/udp
+    sysctls:
+      - net.ipv4.conf.all.src_valid_mark=1
     restart: unless-stopped
