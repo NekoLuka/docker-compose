@@ -34,19 +34,19 @@ services:
         window: 60s
 
   # Freeradius server
+  # First run 'docker build -t freeradius-ldap-auth' in the 'freeradius-with-ldap-auth' folder to build the image
   radius:
-    build: 
-      context: ../freeradius-with-ldap-auth
+    image: freeradius-ldap-auth
     configs:
       - source: radius_client_list
         target: /radius-clients.json
     secrets:
-      - radius_ldap_pass
+      - ldap_admin_pass
     environment:
       LDAP_HOST: slapd
       LDAP_PORT: 1389
       LDAP_USER: cn=admin,dc=homelab,dc=local
-      LDAP_PASS_FILE: /run/secrets/radius_ldap_pass
+      LDAP_PASS_FILE: /run/secrets/ldap_admin_pass
       LDAP_BASEDN: dc=homelab,dc=local
     ports: 
       - 1812:1812/udp
@@ -101,7 +101,5 @@ secrets:
     file: ./ldap-admin-pass.txt
   ldap_configadmin_pass:
     file: ./ldap-configadmin-pass.txt
-  radius_ldap_pass:
-    file: ./radius-ldap-pass.txt
   pihole_web_pass:
     file: ./pihole-web-pass.txt
