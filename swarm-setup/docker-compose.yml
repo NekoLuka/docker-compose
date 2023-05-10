@@ -17,7 +17,6 @@ services:
       LDAP_CONFIG_ADMIN_ENABLED: 1
       LDAP_CONFIG_ADMIN_USERNAME: configadmin
       LDAP_CONFIG_ADMIN_PASSWORD_FILE: /run/secrets/ldap_configadmin_pass
-      LDAP_CUSTOM_SCHEMA_FILE: /loginUser.ldif
     ports:
       - 389:1389
     volumes:
