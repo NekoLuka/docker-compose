@@ -5,9 +5,6 @@ services:
   slapd:
     user: root
     image: bitnami/openldap
-    configs:
-      - source: ldap_login_schema
-        target: /loginUser.ldif
     secrets:
       - ldap_admin_pass
       - ldap_configadmin_pass
@@ -90,8 +87,6 @@ services:
         window: 60s
 
 configs:
-  ldap_login_schema:
-    file: ./loginUser.ldif
   radius_client_list:
     file: ./radius-clients.json
 
