@@ -17,7 +17,7 @@ services:
     ports:
       - 389:1389
     volumes:
-      - ./openldap-config:/bitnami/openldap/:rw
+      - openldap:/bitnami/openldap/:rw
     deploy:
       mode: replicated
       replicas: 1
@@ -73,14 +73,32 @@ services:
       WEBPASSWORD_FILE: /run/secrets/pihole_web_pass
       DNSMASQ_LISTENING: all
     volumes:
-      - ./etc-pihole:/etc-pihole
-      - ./etc-dnsmasq.d:/etc/dnsmasq.d
+      - phole:/etc-pihole
+      - dnsmasq:/etc/dnsmasq.d
     deploy:
       mode: replicated
       replicas: 1
       resources:
         limits:
           memory: 30M
+      restart_policy:
+        condition: on-failure
+        max_attempts: 10
+        window: 60s
+
+  # Uptime kuma uptime monitor
+  uptime-kuma:
+    image: louislam/uptime-kuma
+    ports:
+      - 3001:3001/tcp
+    volumes:
+      - uptime-kuma:/app/data
+    deploy:
+      mode: replicated
+      replicas: 1
+      resources:
+        limits:
+          memory: 10M
       restart_policy:
         condition: on-failure
         max_attempts: 10
@@ -97,3 +115,9 @@ secrets:
     file: ./ldap-configadmin-pass.txt
   pihole_web_pass:
     file: ./pihole-web-pass.txt
+
+volumes:
+  uptime-kuma:
+  pihole:
+  dnsmasq:
+  openldap:
