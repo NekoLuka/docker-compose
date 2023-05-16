@@ -104,6 +104,27 @@ services:
         max_attempts: 10
         window: 60s
 
+  # Chyrp lite, a simple blogging platform
+  # First run 'docker build -t chyrp .' in the 'chyrp-lite' folder to build the image
+  # Follow https://chyrplite.net/wiki/Quick-Start-Guide.html#install-chyrp-lite for installation instructions
+  chyrp:
+    image: chyrp
+    ports: 
+      - 8080:8080
+    volumes:
+      - chyrp:/var/www
+    deploy:
+      mode: replicated
+      replicas: 1
+      resources:
+        limits:
+          memory: 60M
+      restart_policy:
+        condition: on-failure
+        max_attempts: 10
+        window: 60s
+
+
 configs:
   radius_client_list:
     file: ./radius-clients.json
@@ -121,3 +142,4 @@ volumes:
   pihole:
   dnsmasq:
   openldap:
+  chyrp:
