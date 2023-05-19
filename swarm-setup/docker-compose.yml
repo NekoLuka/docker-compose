@@ -121,6 +121,21 @@ services:
         max_attempts: 10
         window: 60s
 
+  raneto:
+    image: lscr.io/linuxserver/raneto:latest
+    ports:
+      - 300:3000
+    volumes:
+      - raneto:/config
+    deploy:
+      mode: replicated
+      replicas: 1
+      restart_policy:
+        condition: on-failure
+        max_attempts: 10
+        window: 60s
+      
+
 
 configs:
   radius_client_list:
@@ -142,3 +157,4 @@ volumes:
   dnsmasq:
   openldap:
   chyrp:
+  raneto:
