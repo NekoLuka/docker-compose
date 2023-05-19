@@ -4,7 +4,7 @@ services:
   raneto:
     image: lscr.io/linuxserver/raneto:latest
     ports:
-      - 300:3000
+      - 3000:3000
     volumes:
       - ./config:/config
     deploy:
