@@ -70,7 +70,7 @@ services:
       WEBPASSWORD_FILE: /run/secrets/pihole_web_pass
       DNSMASQ_LISTENING: all
     volumes:
-      - phole:/etc-pihole
+      - pihole:/etc-pihole
       - dnsmasq:/etc/dnsmasq.d
     deploy:
       mode: replicated
@@ -95,7 +95,7 @@ services:
       replicas: 1
       resources:
         limits:
-          memory: 10M
+          memory: 50M
       restart_policy:
         condition: on-failure
         max_attempts: 10
@@ -121,33 +121,63 @@ services:
         max_attempts: 10
         window: 60s
 
+  # Markdown file based wiki server
   raneto:
-    image: lscr.io/linuxserver/raneto:latest
+    image: lscr.io/linuxserver/raneto:0.17.3
     ports:
       - 3000:3000
     volumes:
       - raneto:/config
+    configs:
+      - source: raneto_js_conf
+        target: /config/config.default.js
+    depends_on:
+      - repoWiki
     deploy:
       mode: replicated
       replicas: 1
+      resources:
+        limits:
+          memory: 30M
       restart_policy:
         condition: on-failure
         max_attempts: 10
         window: 60s
-      
 
+  # Git repo periodic cloner
+  # First clone 'https://github.com/NekoLuka/RepoWiki' and build the container with 'docker build -t repowiki .'
+  repoWiki:
+    image: repowiki
+    volumes:
+      - raneto:/config
+    environment:
+      - GITURL=https://github.com/NekoLuka/RepoWiki-file-layout.git
+      - GIT_REPO_LOCATION=/config
+      - LOG_LEVEL=1
+    deploy:
+      mode: replicated
+      replicas: 1
+      resources:
+        limits:
+          memory: 15M
+      restart_policy:
+        condition: on-failure
+        max_attempts: 10
+        window: 60s
 
 configs:
   radius_client_list:
     file: ./radius-clients.json
+  radius_ldap_config:
+    file: ./ldap.conf
+  raneto_js_conf:
+    file: ./config.default.js
 
 secrets:
   ldap_admin_pass:
     file: ./ldap-admin-pass.txt
   ldap_configadmin_pass:
     file: ./ldap-configadmin-pass.txt
-  radius_ldap_config:
-    file: ./ldap.conf
   pihole_web_pass:
     file: ./pihole-web-pass.txt
 
