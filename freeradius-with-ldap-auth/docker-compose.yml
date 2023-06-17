@@ -1,0 +1,72 @@
+version: '3.8'
+
+services:
+  # LDAP server
+  slapd:
+    user: root
+    image: bitnami/openldap
+    secrets:
+      - ldap_admin_pass
+      - ldap_configadmin_pass
+    environment:
+      LDAP_ADMIN_PASSWORD_FILE: /run/secrets/ldap_admin_pass
+      LDAP_ROOT: dc=homelab,dc=local
+      LDAP_CONFIG_ADMIN_ENABLED: 1
+      LDAP_CONFIG_ADMIN_USERNAME: configadmin
+      LDAP_CONFIG_ADMIN_PASSWORD_FILE: /run/secrets/ldap_configadmin_pass
+    ports:
+      - 389:1389
+    volumes:
+      - openldap:/bitnami/openldap/:rw
+    deploy:
+      mode: replicated
+      replicas: 1
+      resources:
+        limits:
+          memory: 10M
+      restart_policy:
+        condition: on-failure
+        max_attempts: 10
+        window: 60s
+
+  # Freeradius server
+  # First run 'docker build -t freeradius-ldap-auth' in the 'freeradius-with-ldap-auth' folder to build the image
+  # Edit 'ldap.conf' to comply with your LDAP server settings
+  radius:
+    image: freeradius-ldap-auth
+    configs:
+      - source: radius_client_list
+        target: /radius-clients.json
+      - source: radius_ldap_config
+        target: /etc/raddb/mods-available/ldap
+    secrets:
+      - ldap_admin_pass
+    ports: 
+      - 1812:1812/udp
+    depends_on:
+      - slapd
+    deploy:
+      mode: replicated
+      replicas: 1
+      resources:
+        limits:
+          memory: 15M
+      restart_policy:
+        condition: on-failure
+        max_attempts: 10
+        window: 60s
+
+configs:
+  radius_client_list:
+    file: ./radius-clients.json
+  radius_ldap_config:
+    file: ./ldap.conf
+
+secrets:
+  ldap_admin_pass:
+    file: ./ldap-admin-pass.txt
+  ldap_configadmin_pass:
+    file: ./ldap-configadmin-pass.txt
+
+volumes:
+  openldap:
