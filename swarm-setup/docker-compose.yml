@@ -1,33 +1,6 @@
 version: '3.8'
 
 services:
-  # Pi-hole DNS blackhole
-  pihole:
-    image: pihole/pihole
-    ports:
-      - 53:53/tcp
-      - 53:53/udp
-      - 80:80/tcp
-    secrets:
-      - pihole_web_pass
-    environment:
-      TZ: Europe/Amsterdam
-      WEBPASSWORD_FILE: /run/secrets/pihole_web_pass
-      DNSMASQ_LISTENING: all
-    volumes:
-      - pihole:/etc-pihole
-      - dnsmasq:/etc/dnsmasq.d
-    deploy:
-      mode: replicated
-      replicas: 1
-      resources:
-        limits:
-          memory: 30M
-      restart_policy:
-        condition: on-failure
-        max_attempts: 10
-        window: 60s
-
   # Uptime kuma uptime monitor
   uptime-kuma:
     image: louislam/uptime-kuma
@@ -40,7 +13,7 @@ services:
       replicas: 1
       resources:
         limits:
-          memory: 50M
+          memory: 100M
       restart_policy:
         condition: on-failure
         max_attempts: 10
@@ -66,45 +39,22 @@ services:
         max_attempts: 10
         window: 60s
 
-  # Markdown file based wiki server
-  raneto:
-    image: lscr.io/linuxserver/raneto:0.17.3
-    ports:
-      - 3000:3000
+  # SQL server to save data for diffrent containers
+  mysql:
+    image: mariadb
     volumes:
-      - raneto:/config
-    configs:
-      - source: raneto_js_conf
-        target: /config/config.default.js
-    depends_on:
-      - repoWiki
-    deploy:
-      mode: replicated
-      replicas: 1
-      resources:
-        limits:
-          memory: 30M
-      restart_policy:
-        condition: on-failure
-        max_attempts: 10
-        window: 60s
-
-  # Git repo periodic cloner
-  # First clone 'https://github.com/NekoLuka/RepoWiki' and build the container with 'docker build -t repowiki .'
-  repoWiki:
-    image: repowiki
-    volumes:
-      - raneto:/config
+      - mysql:/bitnami/mysql/data
+    secrets:
+      - mysql_root_pass
     environment:
-      - GITURL=https://github.com/NekoLuka/RepoWiki-file-layout.git
-      - GIT_REPO_LOCATION=/config
-      - LOG_LEVEL=1
+      - MARIADB_ALLOW_EMPTY_PASSWORD=yes
+      - MARIADB_ROOT_PASSWORD_FILE=/run/secrets/mysql_root_pass
+    configs:
+      - source: mysql_init_script
+        target: /docker-entrypoint-initdb.d/init.sql
     deploy:
       mode: replicated
       replicas: 1
-      resources:
-        limits:
-          memory: 15M
       restart_policy:
         condition: on-failure
         max_attempts: 10
@@ -113,14 +63,16 @@ services:
 configs:
   raneto_js_conf:
     file: ./config.default.js
+  mysql_init_script:
+    file: ./init.sql
 
 secrets:
-  pihole_web_pass:
-    file: ./pihole-web-pass.txt
+  mysql_root_pass:
+    file: ./mysql-root-pass.txt
 
 volumes:
   uptime-kuma:
   pihole:
   dnsmasq:
   chyrp:
-  raneto:
+  mysql:

@@ -1,0 +1,53 @@
+version: '3.8'
+
+services:
+  # Markdown file based wiki server
+  raneto:
+    image: lscr.io/linuxserver/raneto:0.17.3
+    ports:
+      - 0.0.0.0:3000:3000
+    volumes:
+      - raneto:/config
+    configs:
+      - source: raneto_js_conf
+        target: /config/config.default.js
+    depends_on:
+      - repoWiki
+    deploy:
+      mode: replicated
+      replicas: 1
+      resources:
+        limits:
+          memory: 30M
+      restart_policy:
+        condition: on-failure
+        max_attempts: 10
+        window: 60s
+
+  # Git repo periodic cloner
+  # First clone 'https://github.com/NekoLuka/RepoWiki' and build the container with 'docker build -t repowiki .'
+  repoWiki:
+    image: repowiki
+    volumes:
+      - raneto:/config
+    environment:
+      - GITURL=https://github.com/NekoLuka/RepoWiki-file-layout.git
+      - GIT_REPO_LOCATION=/config
+      - LOG_LEVEL=1
+    deploy:
+      mode: replicated
+      replicas: 1
+      resources:
+        limits:
+          memory: 15M
+      restart_policy:
+        condition: on-failure
+        max_attempts: 10
+        window: 60s
+
+configs:
+  raneto_js_conf:
+    file: ./config.default.js
+
+volumes:
+  raneto:

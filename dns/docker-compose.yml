@@ -1,0 +1,36 @@
+version: '3.8'
+
+services:
+  # Pi-hole DNS blackhole
+  pihole:
+    image: pihole/pihole
+    ports:
+      - 53:53/tcp
+      - 53:53/udp
+      - 80:80/tcp
+    secrets:
+      - pihole_web_pass
+    environment:
+      TZ: Europe/Amsterdam
+      WEBPASSWORD_FILE: /run/secrets/pihole_web_pass
+      DNSMASQ_LISTENING: all
+    volumes:
+      - pihole:/etc-pihole
+      - dnsmasq:/etc/dnsmasq.d
+    deploy:
+      mode: replicated
+      replicas: 1
+      resources:
+        limits:
+          memory: 30M
+      restart_policy:
+        condition: on-failure
+        max_attempts: 10
+        window: 60s
+
+secrets:
+  pihole_web_pass:
+    file: ./pihole-web-pass.txt
+
+volumes:
+  pihole:
