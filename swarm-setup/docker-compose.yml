@@ -1,24 +1,6 @@
 version: '3.8'
 
 services:
-  # Uptime kuma uptime monitor
-  uptime-kuma:
-    image: louislam/uptime-kuma
-    ports:
-      - 3001:3001/tcp
-    volumes:
-      - uptime-kuma:/app/data
-    deploy:
-      mode: replicated
-      replicas: 1
-      resources:
-        limits:
-          memory: 100M
-      restart_policy:
-        condition: on-failure
-        max_attempts: 10
-        window: 60s
-
   # Chyrp lite, a simple blogging platform
   # First run 'docker build -t chyrp .' in the 'chyrp-lite' folder to build the image
   # Follow https://chyrplite.net/wiki/Quick-Start-Guide.html#install-chyrp-lite for installation instructions
@@ -34,6 +16,33 @@ services:
       resources:
         limits:
           memory: 60M
+      restart_policy:
+        condition: on-failure
+        max_attempts: 10
+        window: 60s
+
+  # Statping
+  statping:
+    container_name: statping
+    image: adamboutcher/statping-ng
+    depends_on:
+      - mysql
+    ports:
+      - 9090:8080
+    volumes:
+      - statping_data:/app
+    links:
+      - mysql
+    environment:
+      DB_CONN: mysql
+      DB_HOST: mysql
+      DB_PORT: 3306
+      DB_DATABASE: statping
+      DB_USER: statping
+      DB_PASS: password
+    deploy:
+      mode: replicated
+      replicas: 1
       restart_policy:
         condition: on-failure
         max_attempts: 10
@@ -61,8 +70,6 @@ services:
         window: 60s
 
 configs:
-  raneto_js_conf:
-    file: ./config.default.js
   mysql_init_script:
     file: ./init.sql
 
@@ -71,8 +78,6 @@ secrets:
     file: ./mysql-root-pass.txt
 
 volumes:
-  uptime-kuma:
-  pihole:
-  dnsmasq:
   chyrp:
   mysql:
+  statping_data:

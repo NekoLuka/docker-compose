@@ -1,3 +1,7 @@
 CREATE DATABASE chyrp;
 CREATE USER IF NOT EXISTS chyrp IDENTIFIED BY 'password';
 GRANT ALL PRIVILEGES ON chyrp.* to chyrp;
+
+CREATE DATABASE statping;
+CREATE USER IF NOT EXISTS statping IDENTIFIED BY 'password';
+GRANT ALL PRIVILEGES ON statping.* to statping;
