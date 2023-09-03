@@ -1,0 +1,35 @@
+version: "3.9"
+
+services:
+  # Nextcloud image with some default config
+  nextcloud:
+    image: nextcloud
+    restart: always
+    volumes:
+      - nextcloud:/var/www/html
+      - nextcloud_data:/var/www/html/data
+    environment:
+      POSTGRES_DB: nextcloud
+      POSTGRES_USER: admin
+      POSTGRES_PASSWORD_FILE: /run/secrets/postgres-password.txt
+      POSTGRES_HOST: postgresql:5432
+      NEXTCLOUD_ADMIN_USER: admin
+      NEXTCLOUD_ADMIN_PASSWORD_FILE: /run/secrets/nextcloud-password.txt
+    ports:
+      - "8080:80"
+
+  # Postgres to save all the settings
+  postgresql:
+    image: postgres
+    restart: always
+    volumes:
+      - db:/var/lib/postgresql/data
+    environment:
+      POSTGRES_USER: admin
+      POSTGRES_PASSWORD_FILE: /run/secrets/postgres-password.txt
+      POSTGRES_DB: nextcloud
+
+volumes:
+  nextcloud:
+  nextcloud_data:
+  db:

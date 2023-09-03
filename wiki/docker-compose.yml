@@ -25,9 +25,8 @@ services:
         window: 60s
 
   # Git repo periodic cloner
-  # First clone 'https://github.com/NekoLuka/RepoWiki' and build the container with 'docker build -t repowiki .'
   repoWiki:
-    image: repowiki
+    image: ghcr.io/nekoluka/getgitrepo
     volumes:
       - raneto:/config
     environment:
