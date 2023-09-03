@@ -26,7 +26,7 @@ services:
 
   # Git repo periodic cloner
   repoWiki:
-    image: ghcr.io/nekoluka/getgitrepo
+    image: ghcr.io/nekoluka/getgitrepo:main
     volumes:
       - raneto:/config
     environment:

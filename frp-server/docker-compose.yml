@@ -3,8 +3,8 @@ version: "3.9"
 services:
   # Frp to tunnel connections to clients
   frp:
-    image: ghcr.io/nekoluka/frp-docker
-    retart: unless-stopped
+    image: ghcr.io/nekoluka/frp-docker:main
+    restart: unless-stopped
     volumes:
       - ./frp.ini:/frp.ini
     environment:

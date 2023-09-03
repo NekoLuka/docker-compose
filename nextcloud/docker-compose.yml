@@ -3,7 +3,7 @@ version: "3.9"
 services:
   # Frp to open up the connection to the internet
   frp:
-    image: ghcr.io/nekoluka/frp-docker
+    image: ghcr.io/nekoluka/frp-docker:main
     retart: always
     volumes:
       - ./frp.ini:/frp.ini
