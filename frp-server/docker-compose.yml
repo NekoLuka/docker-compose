@@ -1,0 +1,34 @@
+version: "3.9"
+
+services:
+  # Frp to tunnel connections to clients
+  frp:
+    image: ghcr.io/nekoluka/frp-docker
+    retart: unless-stopped
+    volumes:
+      - ./frp.ini:/frp.ini
+    environment:
+      - RUN_FRPS=true
+      - FRP_CONFIG_FILE =/frp.ini
+      - FRP_VERSION=0.51.3
+    ports:
+      - "7000:7000"
+
+  # Caddy to handle all the http traffic
+  caddy:
+    image: caddy
+    restart: unless-stopped
+    volumes:
+      - caddy_data:/data
+      - caddy_config:/config
+      - ./Caddyfile:/etc/caddy/Caddyfile
+    ports:
+      - "80:80"
+      - "443:443"
+      - "443:443/udp"
+    extra_hosts:
+      - "host.docker.internal:host-gateway"
+
+volumes:
+  caddy_data:
+  caddy_config:

@@ -1,0 +1,7 @@
+headscale.mydomain {
+  reverse_proxy host.docker.internal:8888
+}
+
+nextcloud.mydomain {
+  reverse_proxy frp:8080
+}

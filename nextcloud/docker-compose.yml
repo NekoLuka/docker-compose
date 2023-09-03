@@ -1,6 +1,16 @@
 version: "3.9"
 
 services:
+  # Frp to open up the connection to the internet
+  frp:
+    image: ghcr.io/nekoluka/frp-docker
+    retart: always
+    volumes:
+      - ./frp.ini:/frp.ini
+    environment:
+      - FRP_CONFIG_FILE =/frp.ini
+      - FRP_VERSION=0.51.3
+
   # Nextcloud image with some default config
   nextcloud:
     image: nextcloud
@@ -13,6 +23,7 @@ services:
       POSTGRES_USER: admin
       POSTGRES_PASSWORD_FILE: /run/secrets/postgres-password.txt
       POSTGRES_HOST: postgresql:5432
+      NEXTCLOUD_TRUSTED_DOMAINS: # Fill nextcloud domain here
       NEXTCLOUD_ADMIN_USER: admin
       NEXTCLOUD_ADMIN_PASSWORD_FILE: /run/secrets/nextcloud-password.txt
     ports:
