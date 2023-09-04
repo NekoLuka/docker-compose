@@ -8,7 +8,7 @@ services:
     volumes:
       - ./frp.ini:/frp.ini
     environment:
-      - FRP_CONFIG_FILE =/frp.ini
+      - FRP_CONFIG_FILE=/frp.ini
       - FRP_VERSION=0.51.3
 
   # Nextcloud image with some default config
