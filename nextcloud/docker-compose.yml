@@ -18,6 +18,8 @@ services:
     volumes:
       - nextcloud:/var/www/html
       - nextcloud_data:/var/www/html/data
+      - ./postgres-password.txt:/run/secrets/postgres-password.txt
+      - ./nextcloud-password.txt:/run/secrets/nextcloud-password.txt
     environment:
       POSTGRES_DB: nextcloud
       POSTGRES_USER: admin
@@ -35,6 +37,7 @@ services:
     restart: unless-stopped
     volumes:
       - db:/var/lib/postgresql/data
+      - ./postgres-password.txt:/run/secrets/postgres-password.txt
     environment:
       POSTGRES_USER: admin
       POSTGRES_PASSWORD_FILE: /run/secrets/postgres-password.txt
