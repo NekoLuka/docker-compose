@@ -1,5 +1,5 @@
 headscale.mydomain {
-  reverse_proxy host.docker.internal:8888
+  reverse_proxy headscale:8888
 }
 
 nextcloud.mydomain {
