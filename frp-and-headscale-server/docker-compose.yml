@@ -19,7 +19,7 @@ services:
     image: headscale/headscale
     restart: unless-stopped
     volumes:
-      - headscale_db:/etc/headscale/db.sqlite
+      - headscale_config:/etc/headscale/
       - ./headscale.conf.yml:/etc/headscale/config.yaml
 
   # Caddy to handle all the http traffic
@@ -40,4 +40,4 @@ services:
 volumes:
   caddy_data:
   caddy_config:
-  headscale_db:
+  headscale_config:
