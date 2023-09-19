@@ -9,7 +9,7 @@ services:
       - ./frp.ini:/frp.ini
     environment:
       - RUN_FRPS=true
-      - FRP_CONFIG_FILE =/frp.ini
+      - FRP_CONFIG_FILE=/frp.ini
       - FRP_VERSION=0.51.3
     ports:
       - "7000:7000"
@@ -21,6 +21,7 @@ services:
     volumes:
       - headscale_config:/etc/headscale/
       - ./headscale.conf.yml:/etc/headscale/config.yaml
+    command: headscale serve
 
   # Caddy to handle all the http traffic
   caddy:
