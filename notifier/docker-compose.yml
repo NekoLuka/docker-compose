@@ -1,0 +1,30 @@
+version: "3.9"
+
+services:
+  # Frp to open up the connection to the internet
+  frp:
+    image: ghcr.io/nekoluka/frp-docker:main
+    restart: unless-stopped
+    volumes:
+      - ./frp.ini:/frp.ini
+    environment:
+      - FRP_CONFIG_FILE=/frp.ini
+      - FRP_VERSION=0.51.3
+
+  ntfy:
+    image: binwiederhier/ntfy
+    restart: unless-stopped
+    command:
+      - serve
+    environment:
+      - TZ=UTC/GMT    # optional: set desired timezone
+    volumes:
+      - ntfy_cache:/var/cache/ntfy
+      - ntfy_config:/etc/ntfy
+      - ./ntfy-server.yml:/etc/ntfy/server.yml
+    ports:
+      - "8080:80"
+
+volumes:
+  ntfy_config:
+  ntfy_cache:

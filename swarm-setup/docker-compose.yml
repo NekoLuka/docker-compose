@@ -1,26 +1,6 @@
-version: '3.8'
+version: "3.9"
 
 services:
-  # Chyrp lite, a simple blogging platform
-  # First run 'docker build -t chyrp .' in the 'chyrp-lite' folder to build the image
-  # Follow https://chyrplite.net/wiki/Quick-Start-Guide.html#install-chyrp-lite for installation instructions
-  chyrp:
-    image: chyrp
-    ports: 
-      - 8080:8080
-    volumes:
-      - chyrp:/var/www
-    deploy:
-      mode: replicated
-      replicas: 1
-      resources:
-        limits:
-          memory: 60M
-      restart_policy:
-        condition: on-failure
-        max_attempts: 10
-        window: 60s
-
   # Statping
   statping:
     container_name: statping
@@ -28,7 +8,7 @@ services:
     depends_on:
       - mysql
     ports:
-      - 9090:8080
+      - "9090:8080"
     volumes:
       - statping_data:/app
     links:
@@ -80,4 +60,3 @@ secrets:
 volumes:
   chyrp:
   mysql:
-  statping_data:
