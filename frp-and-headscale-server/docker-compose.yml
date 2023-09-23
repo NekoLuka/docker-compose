@@ -1,3 +1,5 @@
+# NOT SUPPOSED TO RUN IN SWARM MODE
+
 version: "3.9"
 
 services:

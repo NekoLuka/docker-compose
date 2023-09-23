@@ -5,3 +5,7 @@ headscale.mydomain {
 nextcloud.mydomain {
   reverse_proxy frp:8080
 }
+
+ntfy.mydomain {
+  reverse_proxy frp:8080
+}

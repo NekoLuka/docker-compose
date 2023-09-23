@@ -1,2 +1,4 @@
 behind-proxy: true
 base-url: http:// # Enter your url here
+auth-file: /etc/ntfy/users.db
+auth-default-access: deny-all

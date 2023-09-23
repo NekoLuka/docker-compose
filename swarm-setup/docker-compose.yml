@@ -58,5 +58,5 @@ secrets:
     file: ./mysql-root-pass.txt
 
 volumes:
-  chyrp:
+  statping_data:
   mysql:
