@@ -1,0 +1,22 @@
+version: "3.9"
+
+services:
+  mkdocs:
+    image: squidfunk/mkdocs-material
+    restart: unless-stopped
+    ports:
+      - "8000:8000"
+    volumes:
+      - mkdocs:/docs
+
+  getgitrepo:
+    image: ghcr.io/nekoluka/getgitrepo:main
+    volumes:
+      - mkdocs:/config
+    environment:
+      - GITURL=https://github.com/NekoLuka/wiki-files.git
+      - GIT_REPO_LOCATION=/config
+      - LOG_LEVEL=1
+
+volumes:
+  mkdocs:
