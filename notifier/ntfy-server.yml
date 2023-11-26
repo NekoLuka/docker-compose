@@ -2,3 +2,7 @@ behind-proxy: true
 base-url: http:// # Enter your url here
 auth-file: /etc/ntfy/users.db
 auth-default-access: deny-all
+
+# This assumes to only use the smtp server for internal use
+smtp-server-listen: ":25"
+smtp-server-domain: "example.com" # Edit this to be whatever you want

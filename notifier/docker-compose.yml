@@ -24,6 +24,8 @@ services:
       - ntfy_cache:/var/cache/ntfy
       - ntfy_config:/etc/ntfy
       - ./ntfy-server.yml:/etc/ntfy/server.yml
+    ports:
+      - "25:25"
 
 volumes:
   ntfy_config:
