@@ -12,3 +12,7 @@ nextcloud.mydomain {
 ntfy.mydomain {
   reverse_proxy frp:8080
 }
+
+immich.mydomain {
+  reverse_proxy frp:8080
+}
