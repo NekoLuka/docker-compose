@@ -8,3 +8,6 @@ db_type: sqlite3
 db_path: /etc/headscale/db.sqlite
 tls_cert_path: ""
 tls_key_path: ""
+ip_prefixes:
+  - fd7a:115c:a1e0::/48
+  - 100.64.0.0/10
