@@ -9,3 +9,6 @@ services:
       - TZ=Europe/Amsterdam
     volumes:
       - homeassistent:/config
+
+volumes:
+  homeassistent:
