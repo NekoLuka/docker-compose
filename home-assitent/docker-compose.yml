@@ -1,6 +1,16 @@
 version: '3.9'
 
 services:
+  frp:
+    image: ghcr.io/nekoluka/frp-docker:main
+    network_mode: host
+    restart: unless-stopped
+    volumes:
+      - ./frp.ini:/frp.ini
+    environment:
+      - FRP_CONFIG_FILE=/frp.ini
+      - FRP_VERSION=0.51.3
+
   homeassistent:
     image: linuxserver/homeassistant
     network_mode: host
