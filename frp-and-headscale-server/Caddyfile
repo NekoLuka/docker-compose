@@ -16,3 +16,7 @@ ntfy.mydomain {
 immich.mydomain {
   reverse_proxy frp:8080
 }
+
+homeassistent.mydomain {
+  reverse_proxy frp:8080
+}
