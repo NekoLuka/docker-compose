@@ -3,7 +3,7 @@ headscale.mydomain {
 }
 
 nextcloud.mydomain {
-  redir /.well-known/carddav /remote.php/dav permanent                                          │
+  redir /.well-known/carddav /remote.php/dav permanent
   redir /.well-known/caldav /remote.php/dav permanent
   header Strict-Transport-Security "max-age=15552000; includeSubDomains;"
   reverse_proxy frp:8080
