@@ -1,37 +1,15 @@
-version: '3.8'
+version: '3.9'
 
 services:
-  # Pi-hole DNS blackhole
-  pihole:
-    image: pihole/pihole
+  # AdGuard DNS blackhole
+  adguard:
+    image: adguard/adguardhome
     ports:
       - 53:53/tcp
       - 53:53/udp
       - 80:80/tcp
-    secrets:
-      - pihole_web_pass
-    environment:
-      TZ: Europe/Amsterdam
-      WEBPASSWORD_FILE: /run/secrets/pihole_web_pass
-      DNSMASQ_LISTENING: all
+      - 443:443/tcp
+      - 3000:3000/tcp
+    restart: unless-stopped
     volumes:
-      - pihole:/etc-pihole
-      - dnsmasq:/etc/dnsmasq.d
-    deploy:
-      mode: replicated
-      replicas: 1
-      resources:
-        limits:
-          memory: 30M
-      restart_policy:
-        condition: on-failure
-        max_attempts: 10
-        window: 60s
-
-secrets:
-  pihole_web_pass:
-    file: ./pihole-web-pass.txt
-
-volumes:
-  pihole:
-  dnsmasq:
+      - ./conf:/opt/adguardhome/conf/
