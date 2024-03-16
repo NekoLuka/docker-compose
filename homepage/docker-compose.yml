@@ -6,5 +6,6 @@ services:
     ports:
       - 3000:3000
     volumes:
-      - /path/to/config:/app/config # Make sure your local config directory exists
+      - ./config:/app/config # Make sure your local config directory exists
+      - ./images:/app/public/images
     restart: unless-stopped
