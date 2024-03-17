@@ -1,0 +1,3 @@
+Run understanding command to generate a self signed certificate
+
+openssl req -newkey rsa:4096  -x509  -sha512  -days 365 -nodes -out actual-data/selfhost.crt -keyout actual-data/selfhost.key
