@@ -4,3 +4,4 @@ sources.txt
 freeradius-data
 raneto/config
 .env
+.DS_Store
