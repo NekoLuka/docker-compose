@@ -1,0 +1,13 @@
+version: '3.9'
+
+volumes:
+  nodered:
+
+services:
+  nodered:
+    image: nodered/node-red:latests
+    restart: unless-stopped
+    volumes:
+      - nodered:/data
+    ports:
+      - 1880:1880
