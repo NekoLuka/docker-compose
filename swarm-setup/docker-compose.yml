@@ -4,7 +4,7 @@ services:
   # Statping
   statping:
     container_name: statping
-    image: adamboutcher/statping-ng
+    image: ghcr.io/statping-ng/statping-ng:0.91
     depends_on:
       - mysql
     ports:
