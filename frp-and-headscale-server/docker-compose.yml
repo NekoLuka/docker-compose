@@ -16,15 +16,6 @@ services:
     ports:
       - "7000:7000"
 
-  # Headscale to manage all tailscale clients
-  headscale:
-    image: headscale/headscale
-    restart: unless-stopped
-    volumes:
-      - headscale_config:/etc/headscale/
-      - ./headscale.conf.yml:/etc/headscale/config.yaml
-    command: headscale serve
-
   # Caddy to handle all the http traffic
   caddy:
     image: caddy
@@ -43,4 +34,3 @@ services:
 volumes:
   caddy_data:
   caddy_config:
-  headscale_config:

@@ -5,3 +5,4 @@ freeradius-data
 raneto/config
 .env
 .DS_Store
+gatus/config/config.yaml
