@@ -5,7 +5,7 @@ volumes:
 
 services:
   nodered:
-    image: nodered/node-red:latests
+    image: nodered/node-red:latest
     restart: unless-stopped
     volumes:
       - nodered:/data
