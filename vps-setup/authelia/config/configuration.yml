@@ -1,0 +1,58 @@
+server:
+  address: tcp://0.0.0.0:9091/
+  endpoints:
+    authz:
+      forward-auth:
+        implementation: 'ForwardAuth'
+
+storage:
+  local:
+    path: /config/authelia.db
+
+notifier:
+  disable_startup_check: false
+  filesystem:
+    filename: '/config/notification.txt'
+
+log:
+  level: info
+  format: text
+  file_path: '/config/logs/authelia.%d.log'
+  keep_stdout: true
+
+authentication_backend:
+  password_reset:
+    disable: false
+  file:
+    path: '/config/users.yml'
+    watch: true
+    password:
+      algorithm: sha2crypt
+      sha2crypt:
+        variant: sha256
+
+totp:
+  # Change the name to something you want
+  issuer: Authelia
+
+regulation:
+  max_retries: 3
+  find_time: '2m'
+  ban_time: '5m'
+
+password_policy:
+  zxcvbn:
+    enabled: true
+    min_score: 3
+
+access_control:
+  default_policy: 'two_factor'
+
+session:
+  cookies:
+    # Edit the domain and the url
+    - domain: local.local
+      authelia_url: https://auth.local.local
+      inactivity: 10m
+      expiration: 2h
+      remember_me: 1d

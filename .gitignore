@@ -5,4 +5,9 @@ freeradius-data
 raneto/config
 .env
 .DS_Store
+vps-setup/gatus/config/config.yaml
+vps-setup/authelia/config/logs
+vps-setup/authelia/config/authelia.db
+vps-setup/authelia/config/users.yml
+vps-setup/authelia/config/notification.txt
 gatus/config/config.yaml
