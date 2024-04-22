@@ -1,0 +1,14 @@
+bindPort = 7070
+vhostHTTPPort = 6789
+
+transport.maxPoolCount = 5
+
+webServer.addr = "0.0.0.0"
+webServer.port = 7500
+
+log.to = "/frps.log"
+log.level = "info"
+log.maxDays = 3
+
+auth.method = "token"
+auth.token = "supersecrettoken"

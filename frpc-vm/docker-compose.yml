@@ -1,0 +1,8 @@
+version: '3.9'
+
+services:
+  frps:
+    image: snowdreamtech/frpc:0.57.0
+    restart: unless-stopped
+    volumes:
+      - ./frpc.toml:/etc/frp/frpc.toml

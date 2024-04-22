@@ -1,3 +1,5 @@
+// LOCAL PROXIES
+
 // Edit domain
 auth.local.local {
   reverse_proxy authelia:9091 
@@ -11,3 +13,28 @@ gatus.local.local {
   }
   reverse_proxy gatus:8080
 }
+
+// Edit domain 
+docs.local.local {
+  forward_auth authelia:9091 {
+    uri /api/authz/forward-auth
+    copy_headers Remote-User Remote-Groups Remote-Email Remote-Name
+  }
+  reverse_proxy mkdocs:8000
+}
+
+// Edit domain 
+ntfy.local.local {
+  reverse_proxy ntfy:80
+}
+
+// Edit domain
+frp.local.local {
+  forward_auth authelia:9091 {
+    uri /api/authz/forward-auth
+    copy_headers Remote-User Remote-Groups Remote-Email Remote-Name
+  }
+  reverse_proxy frps:7500
+}
+
+// END LOCAL PROXIES
