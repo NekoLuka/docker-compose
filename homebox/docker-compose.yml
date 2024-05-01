@@ -1,0 +1,18 @@
+version: '3.9'
+
+volumes:
+   homebox-data:
+     driver: local
+
+services:
+  homebox:
+    image: ghcr.io/hay-kot/homebox:latest
+    restart: unless-stopped
+    environment:
+      - HBOX_LOG_LEVEL=info
+      - HBOX_LOG_FORMAT=text
+      - HBOX_WEB_MAX_UPLOAD_SIZE=10
+    volumes:
+      - homebox-data:/data/
+    ports:
+      - 3100:7745
