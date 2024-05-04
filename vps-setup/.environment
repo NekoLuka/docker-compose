@@ -1,0 +1,5 @@
+#export DOMAIN=<domain>
+
+# Do not edit
+PS1='(Sakuracloud installer) U=\u PWD=\w \$ '
+alias ll='ls -l'
