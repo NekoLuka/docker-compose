@@ -4,5 +4,7 @@ services:
   frps:
     image: snowdreamtech/frpc:0.57.0
     restart: unless-stopped
+    variables:
+      - FRP_SERVER_ADDR=x.x.x.x
     volumes:
       - ./frpc.toml:/etc/frp/frpc.toml

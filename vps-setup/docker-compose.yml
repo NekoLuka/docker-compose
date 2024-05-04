@@ -45,7 +45,7 @@ services:
     ports:
       - 127.0.0.1:8000:8000
     volumes:
-      - ./wiki-files:/docs
+      - EDIT-ME:/docs
 
   ntfy:
     image: binwiederhier/ntfy

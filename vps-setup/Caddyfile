@@ -38,3 +38,28 @@ frp.local.local {
 }
 
 // END LOCAL PROXIES
+
+
+// REMOTE PROXIES
+
+// Edit domain 
+s3.local.local {
+  reverse_proxy frps:8080
+}
+
+// Edit domain 
+nextcloud.local.local {
+  reverse_proxy frps:8080
+}
+
+// Edit domain 
+immich.local.local {
+  reverse_proxy frps:8080
+}
+
+// Edit domain 
+vaultwarden.local.local {
+  reverse_proxy frps:8080
+}
+
+// END REMOTE PROXIES
