@@ -5,6 +5,7 @@ volumes:
   caddy_config:
   ntfy_config:
   ntfy_cache:
+  lldap_data:
 
 services:
   caddy:
@@ -20,7 +21,7 @@ services:
 
   authelia:
     image: docker.io/authelia/authelia:latest
-    restart: 'unless-stopped'
+    restart: unless-stopped
     ports:
       - 127.0.0.1:9091:9091
     environment:
@@ -28,8 +29,22 @@ services:
       AUTHELIA_SESSION_SECRET_FILE: '/secrets/SESSION_SECRET'
       AUTHELIA_STORAGE_ENCRYPTION_KEY_FILE: '/secrets/STORAGE_ENCRYPTION_KEY'
     volumes:
-      - './authelia/config:/config'
-      - './authelia/secrets:/secrets'
+      - ./authelia/config:/config
+      - ./authelia/secrets:/secrets
+
+  lldap:
+    image: lldap/lldap:stable
+    restart: unless-stopped
+    ports:
+      - 127.0.0.1:17170:17170
+    environment:
+      - UID=0
+      - GID=0
+      - LLDAP_JWT_SECRET=REPLACE_WITH_RANDOM
+      - LLDAP_KEY_SEED=REPLACE_WITH_RANDOM
+      - LLDAP_LDAP_BASE_DN=LLDAP-BASE-DN
+    volumes:
+      - lldap_data:/data
 
   gatus:
     image: twinproduction/gatus
@@ -45,7 +60,7 @@ services:
     ports:
       - 127.0.0.1:8000:8000
     volumes:
-      - EDIT-ME:/docs
+      - MKDOCS-FILE-PATH:/docs
 
   ntfy:
     image: binwiederhier/ntfy
@@ -71,4 +86,3 @@ services:
       - 127.0.0.1:7500:7500 # FRP dashboard
     volumes:
       - ./frps.toml:/etc/frp/frps.toml
-

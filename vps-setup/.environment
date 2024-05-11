@@ -1,5 +1,7 @@
-#export DOMAIN=<domain>
+export DOMAIN=<domain>
+export LDAP_DOMAIN=<ldap_domain> # Example: dc=example,dc=com
+export NTFY_DOMAIN=<ntfy_domain> # Example: example.com
 
 # Do not edit
-PS1='(Sakuracloud installer) U=\u PWD=\w \$ '
+PS1='\n(Sakuracloud installer) Time=\A User=\u Jobs=\j \n-> PWD=\w \$ '
 alias ll='ls -l'

@@ -5,6 +5,11 @@ auth.local.local {
   reverse_proxy authelia:9091 
 }
 
+// Edit domain
+ldap.local.local {
+  reverse_proxy lldap:17170 
+}
+
 // Edit domain 
 gatus.local.local {
   forward_auth authelia:9091 {

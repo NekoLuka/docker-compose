@@ -7,6 +7,7 @@
 - ntfy-server.yml
 - frps.toml
 - gatus/config/config.yaml
+- authelia/config/configuration.yml
 - authelia/secrets/JWT_SECRET
 - authelia/secrets/SESSION_SECRET
 - authelia/secrets/STORAGE_ENCRYPTION_KEY
@@ -20,17 +21,25 @@ source .environment
 ```
 
 ### Edit docker-compose.yml
-Clone your git repo with your MkDocs config and docs to the server and follow the guide mentioned [here](#auto-update-docs-from-git).  
+Steps to install the repo:
+- By default does the LLDAP container run as root, to change that, edit uid and guid in the config.
+- Clone your git repo with your MkDocs config and docs to the server and follow the guide mentioned [here](#auto-update-docs-from-git).  
+
 After that, run the following command.
 ```bash
-sed -i s/EDIT-ME/$DOMAIN/ docker-compose.yml
+sed -i -e s/MKDOCS-FILE-PATH/$DOMAIN/ -e s/LLDAP-BASE-DN/$LDAP_DOMAIN/ docker-compose.yml
 ```
 
 ### Edit Caddyfile
-Run the following command, but the export part can be ommited when running after the previous command.
-This also assumes you have the following subdomains: auth, gatus, docs, ntfy, frp, s3, nextcloud, immich and vaultwarden.
+Run the following command.
+This assumes you have the following subdomains: auth, ldap, gatus, docs, ntfy, frp, s3, nextcloud, immich and vaultwarden. If not, edit the Caddyfile to the wished for values.
 ```bash
 sed -i -e s/local.local/$DOMAIN/ -e '/Edit domain/d' Caddyfile
+```
+
+### Edit ntfy-server.yml
+```bash
+sed -i -e s/NTFY_DOMAIN/$NTFY_DOMAIN/ ntfy-server.yml
 ```
 
 ## Manage
