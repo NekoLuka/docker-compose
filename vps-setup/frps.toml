@@ -11,4 +11,4 @@ log.level = "info"
 log.maxDays = 3
 
 auth.method = "token"
-auth.token = "supersecrettoken"
+auth.token = "FRPS_AUTH_TOKEN"

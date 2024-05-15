@@ -42,6 +42,11 @@ sed -i -e s/local.local/$DOMAIN/ -e '/Edit domain/d' Caddyfile
 sed -i -e s/NTFY_DOMAIN/$NTFY_DOMAIN/ ntfy-server.yml
 ```
 
+### Edit frps.toml
+```bash
+sed -i -e s/FRPS_AUTH_TOKEN/$FRPS_AUTH_TOKEN/ frps.toml
+```
+
 ## Manage
 
 ### Auto update docs from git
