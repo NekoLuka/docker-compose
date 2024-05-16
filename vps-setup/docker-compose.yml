@@ -6,6 +6,7 @@ volumes:
   ntfy_config:
   ntfy_cache:
   lldap_data:
+  heimdall_config:
 
 services:
   caddy:
@@ -86,3 +87,14 @@ services:
       - 127.0.0.1:7500:7500 # FRP dashboard
     volumes:
       - ./frps.toml:/etc/frp/frps.toml
+
+  heimdall:
+    image: lscr.io/linuxserver/heimdall:latest
+    environment:
+      - TZ=Etc/UTC
+    volumes:
+      - heimdall_config:/config
+    ports:
+      - 80:80
+      - 443:443
+    restart: unless-stopped
