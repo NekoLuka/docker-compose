@@ -39,7 +39,7 @@ frp.local.local {
     uri /api/authz/forward-auth
     copy_headers Remote-User Remote-Groups Remote-Email Remote-Name
   }
-  reverse_proxy frps:7500
+  reverse_proxy frps:80
 }
 
 // Edit domain
