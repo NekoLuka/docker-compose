@@ -42,6 +42,15 @@ frp.local.local {
   reverse_proxy frps:7500
 }
 
+// Edit domain
+heimdall.local.local {
+  forward_auth authelia:9091 {
+    uri /api/authz/forward-auth
+    copy_headers Remote-User Remote-Groups Remote-Email Remote-Name
+  }
+  reverse_proxy heimdall:7500
+}
+
 // END LOCAL PROXIES
 
 
