@@ -11,3 +11,4 @@ vps-setup/authelia/config/authelia.db
 vps-setup/authelia/config/users.yml
 vps-setup/authelia/config/notification.txt
 gatus/config/config.yaml
+notifier
