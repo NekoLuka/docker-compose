@@ -11,7 +11,7 @@
 - authelia/secrets/JWT_SECRET
 - authelia/secrets/SESSION_SECRET
 - authelia/secrets/STORAGE_ENCRYPTION_KEY
-- authelia/secrets/STORAGE_PASSWORD
+- authelia/secrets/LDAP_PASSWORD_FILE
 
 ### Source .environment file
 Edit the .environment file so that it reflects your wished for values.
@@ -27,7 +27,7 @@ Steps to install the repo:
 
 After that, run the following command.
 ```bash
-sed -i -e s/MKDOCS-FILE-PATH/$DOMAIN/ -e s/LLDAP-BASE-DN/$LDAP_DOMAIN/ docker-compose.yml
+sed -i -e s/MKDOCS-FILE-PATH/$DOMAIN/ -e s/LDAP_DOMAIN/$LDAP_DOMAIN/ docker-compose.yml
 ```
 
 ### Edit Caddyfile
@@ -45,6 +45,13 @@ sed -i -e s/NTFY_DOMAIN/$NTFY_DOMAIN/ ntfy-server.yml
 ### Edit frps.toml
 ```bash
 sed -i -e s/FRPS_AUTH_TOKEN/$FRPS_AUTH_TOKEN/ frps.toml
+```
+
+### Edit Authelia config.yaml
+There is some extra optional config in the file that is not automatically done.
+These are the display name options for TOTP and webauthn. You can edit these manually.
+```bash
+sed -i -e s/local.local/$DOMAIN/ -e s/LDAP_DOMAIN/$LDAP_DOMAIN/ authelia/config/configuration.yml
 ```
 
 ## Manage
@@ -67,3 +74,4 @@ docker compose cp frps:/frps.log frps.log
 # TODO
 - ~~config ntfy~~
 - look at authelia config again
+- Auto generate secrets for the secret files
