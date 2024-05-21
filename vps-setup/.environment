@@ -8,6 +8,7 @@ export FRPS_AUTH_TOKEN=$(cat /dev/urandom | tr -dc 'a-zA-Z0-9' | fold -w 10 | he
 
 ldap_password=$(cat /dev/urandom | tr -dc 'a-zA-Z0-9' | fold -w 20 | head -n 1)
 echo "Create a user with the following username: bind_user and the following password: $ldap_password"
+echo "Assign the user to the following group: lldap_password_manager"
 echo $ldap_password > authelia/secrets/LDAP_PASSWORD
 
 cat /dev/urandom | tr -dc 'a-zA-Z0-9' | fold -w 20 | head -n 1 > authelia/secrets/JWT_SECRET
