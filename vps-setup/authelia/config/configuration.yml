@@ -23,13 +23,21 @@ log:
 authentication_backend:
   password_reset:
     disable: false
-  file:
-    path: '/config/users.yml'
-    watch: true
-    password:
-      algorithm: sha2crypt
-      sha2crypt:
-        variant: sha256
+  ldap:
+    implementation: custom
+    url: ldap://lldap:3890
+    timeout: 5s
+    start_tls: false
+    base_dn: LDAP_DOMAIN
+    username_attribute: uid
+    additional_users_dn: ou=people
+    users_filter: "(&({username_attribute}={input})(objectClass=person))"
+    additional_groups_dn: ou=groups
+    groups_filter: "(member={dn})"
+    group_name_attribute: cn
+    mail_attribute: mail
+    display_name_attribute: displayName
+    user: uid=bind_user,ou=people,LDAP_DOMAIN # TODO: Create auto config for bind_user in LLDAP
 
 totp:
   issuer: Authelia # Change the name to something you want
