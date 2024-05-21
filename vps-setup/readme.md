@@ -27,7 +27,7 @@ Steps to install the repo:
 
 After that, run the following command.
 ```bash
-sed -i -e s/MKDOCS-FILE-PATH/$DOMAIN/ -e s/LDAP_DOMAIN/$LDAP_DOMAIN/ docker-compose.yml
+sed -i -e s/MKDOCS-FILE-PATH/$MKDOCS_PATH/ -e s/LDAP_DOMAIN/$LDAP_DOMAIN/ docker-compose.yml
 ```
 
 ### Edit Caddyfile
