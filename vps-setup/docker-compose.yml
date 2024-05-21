@@ -43,7 +43,7 @@ services:
       - GID=0
       - LLDAP_JWT_SECRET=REPLACE_WITH_RANDOM
       - LLDAP_KEY_SEED=REPLACE_WITH_RANDOM
-      - LLDAP_LDAP_BASE_DN=LLDAP-BASE-DN
+      - LLDAP_LDAP_BASE_DN=LDAP_DOMAIN
     volumes:
       - lldap_data:/data
 
