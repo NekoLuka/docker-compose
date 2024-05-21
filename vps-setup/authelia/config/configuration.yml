@@ -32,8 +32,13 @@ authentication_backend:
         variant: sha256
 
 totp:
-  # Change the name to something you want
-  issuer: Authelia
+  issuer: Authelia # Change the name to something you want
+
+webauthn:
+  display_name: Authelia # Change the name to something you want
+  attestation_conveyance_preference: indirect
+  user_verification: preferred
+  timeout: 60s
 
 regulation:
   max_retries: 3
