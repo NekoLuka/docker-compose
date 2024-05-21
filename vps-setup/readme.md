@@ -11,7 +11,7 @@
 - authelia/secrets/JWT_SECRET
 - authelia/secrets/SESSION_SECRET
 - authelia/secrets/STORAGE_ENCRYPTION_KEY
-- authelia/secrets/LDAP_PASSWORD_FILE
+- authelia/secrets/LDAP_PASSWORD
 
 ### Source .environment file
 Edit the .environment file so that it reflects your wished for values.
