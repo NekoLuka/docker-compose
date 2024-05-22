@@ -60,6 +60,9 @@ password_policy:
 
 access_control:
   default_policy: 'two_factor'
+  rules:
+  - domain: 'heimdall.local.local'
+    policy: 'one_factor'
 
 session:
   cookies:
