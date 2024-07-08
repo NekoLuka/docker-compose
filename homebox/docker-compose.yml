@@ -6,7 +6,7 @@ volumes:
 
 services:
   homebox:
-    image: ghcr.io/hay-kot/homebox:latest
+    image: ghcr.io/sysadminsmedia/homebox:latest
     restart: unless-stopped
     environment:
       - HBOX_LOG_LEVEL=info
