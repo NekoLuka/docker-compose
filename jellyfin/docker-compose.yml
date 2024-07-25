@@ -3,6 +3,10 @@ version: '3.9'
 volumes:
   jellyfin_cache:
   jellyfin_config:
+  jellyseerr_config:
+  sonarr_config:
+  jackett_config:
+  jackett_blackhole:
 
 services:
   jellyfin:
@@ -12,13 +16,48 @@ services:
       - jellyfin_config:/config
       - jellyfin_cache:/cache
       - type: bind
-        source: /mnt/media
+        source: /mnt/media-library
         target: /media
         read_only: true
     restart: 'unless-stopped'
-    # Optional - alternative address used for autodiscovery
-    #environment:
-     # - JELLYFIN_PublishedServerUrl=http://example.com
-    # Optional - may be necessary for docker healthcheck to pass if running in host network mode
-    #extra_hosts:
-      #- 'host.docker.internal:host-gateway'
+
+  jellyseerr:
+    image: fallenbagel/jellyseerr:latest
+    environment:
+      - LOG_LEVEL=debug
+      - TZ=Europe/Amsterdam
+    ports:
+      - 5055:5055
+    volumes:
+      - jellyseerr_config:/app/config
+    restart: unless-stopped
+
+  sonarr:
+    image: ghcr.io/hotio/sonarr
+    ports:
+      - "8989:8989"
+    environment:
+      - UMASK=002
+      - PUID=1000
+      - PGID=1000
+      - TZ=Europe/Amsterdam
+    volumes:
+      - sonarr_config:/config
+      - /mnt/fsf-torrents:/downloads
+      - /mnt/media-library:/data
+    restart: unless-stopped
+
+  jackett:
+    image: lscr.io/linuxserver/jackett:latest
+    environment:
+      - PUID=1000
+      - PGID=1000
+      - TZ=Europe/Amsterdam
+      - AUTO_UPDATE=true #optional
+      - RUN_OPTS= #optional
+    volumes:
+      - jackett_config:/config
+      - jackett_blackhole:/downloads
+    ports:
+      - 9117:9117
+    restart: unless-stopped
