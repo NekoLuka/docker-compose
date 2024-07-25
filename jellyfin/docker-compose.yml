@@ -1,0 +1,24 @@
+version: '3.9'
+
+volumes:
+  jellyfin_cache:
+  jellyfin_config:
+
+services:
+  jellyfin:
+    image: jellyfin/jellyfin
+    network_mode: 'host'
+    volumes:
+      - jellyfin_config:/config
+      - jellyfin_cache:/cache
+      - type: bind
+        source: /mnt/media
+        target: /media
+        read_only: true
+    restart: 'unless-stopped'
+    # Optional - alternative address used for autodiscovery
+    #environment:
+     # - JELLYFIN_PublishedServerUrl=http://example.com
+    # Optional - may be necessary for docker healthcheck to pass if running in host network mode
+    #extra_hosts:
+      #- 'host.docker.internal:host-gateway'
