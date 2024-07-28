@@ -10,15 +10,15 @@ volumes:
 
 services:
   jellyfin:
-    image: jellyfin/jellyfin
-    network_mode: 'host'
+    image: linuxserver/jellyfin
+    ports:
+      - 8096:8096
     volumes:
       - jellyfin_config:/config
       - jellyfin_cache:/cache
       - type: bind
         source: /mnt/media-library
         target: /media
-        read_only: true
     restart: 'unless-stopped'
 
   jellyseerr:
