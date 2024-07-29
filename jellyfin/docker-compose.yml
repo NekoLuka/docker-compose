@@ -5,6 +5,7 @@ volumes:
   jellyfin_config:
   jellyseerr_config:
   sonarr_config:
+  bazarr_config:
   jackett_config:
   jackett_blackhole:
 
@@ -45,6 +46,20 @@ services:
       - sonarr_config:/config
       - /mnt/fsf-torrents:/downloads
       - /mnt/media-library:/data
+    restart: unless-stopped
+
+  bazarr:
+    image: lscr.io/linuxserver/bazarr:latest
+    environment:
+      - PUID=1000
+      - PGID=1000
+      - TZ=Etc/UTC
+    volumes:
+      - bazarr_config:/config
+      - /mnt/media-library/Movies:/movies 
+      - /mnt/media-library/Shows:/tv 
+    ports:
+      - 6767:6767
     restart: unless-stopped
 
   jackett:
