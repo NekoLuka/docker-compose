@@ -13,26 +13,10 @@ log.maxDays = 3
 auth.method = "token"
 auth.token = "supersecrettoken"
 
-[MinIO]
-name = "web"
-type = "http"
-localIP = "s3.local.local"
-localPort = 9000
-remote_port = 8080
-customDomains = "s3.remote.remote"
-
-[Nextcloud]
-name = "web"
-type = "http"
-localIP = "nextcloud.local.local"
-localPort = 80
-remote_port = 8080
-customDomains = "nextcloud.remote.remote"
-
 [Immich]
 name = "web"
 type = "http"
-localIP = "immich.local.local"
+localIP = "immich.lan"
 localPort = 3001
 remote_port = 8080
 customDomains = "immich.remote.remote"
@@ -40,7 +24,15 @@ customDomains = "immich.remote.remote"
 [Vaultwarden]
 name = "web"
 type = "http"
-localIP = "vaultwarden.local.local"
+localIP = "vaultwarden.lan"
 localPort = 9000
 remote_port = 8080
 customDomains = "vaultwarden.remote.remote"
+
+[Owncloud]
+name = "web"
+type = "http"
+localIP = "owncloud.lan"
+localPort = 8080
+remote_port = 8080
+customDomains = "owncloud.remote.remote"
