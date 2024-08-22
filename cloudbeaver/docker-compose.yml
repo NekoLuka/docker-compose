@@ -1,0 +1,12 @@
+version: '3.9'
+
+services:
+  cloudbeaver:
+    image: 'dbeaver/cloudbeaver:latest'
+    volumes:
+      - cloudbeaver:/opt/cloudbeaver/workspace
+    ports:
+      - '8080:8978'
+
+volumes:
+  cloudbeaver:
