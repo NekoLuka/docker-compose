@@ -1,54 +1,56 @@
 # LOCAL PROXIES
 
-# Edit domain
 auth.local.local {
-  reverse_proxy authelia:9091 
+	reverse_proxy authelia:9091
 }
 
-# Edit domain
 ldap.local.local {
-  reverse_proxy lldap:17170 
+	forward_auth authelia:9091 {
+		uri /api/authz/forward-auth
+	}
+	reverse_proxy lldap:17170
 }
 
-# Edit domain 
 gatus.local.local {
-  forward_auth authelia:9091 {
-    uri /api/authz/forward-auth
-    copy_headers Remote-User Remote-Groups Remote-Email Remote-Name
-  }
-  reverse_proxy gatus:8080
+	forward_auth authelia:9091 {
+		uri /api/authz/forward-auth
+	}
+	reverse_proxy gatus:8080
 }
 
-# Edit domain 
-docs.local.local {
-  forward_auth authelia:9091 {
-    uri /api/authz/forward-auth
-    copy_headers Remote-User Remote-Groups Remote-Email Remote-Name
-  }
-  reverse_proxy mkdocs:8000
-}
+# docs.local.local {
+#   forward_auth authelia:9091 {
+#     uri /api/authz/forward-auth
+#     copy_headers Remote-User Remote-Groups Remote-Email Remote-Name
+#   }
+#   reverse_proxy mkdocs:8000
+# }
 
-# Edit domain 
 ntfy.local.local {
-  reverse_proxy ntfy:80
+	reverse_proxy ntfy:80
 }
 
-# Edit domain
 frp.local.local {
-  forward_auth authelia:9091 {
-    uri /api/authz/forward-auth
-    copy_headers Remote-User Remote-Groups Remote-Email Remote-Name
-  }
-  reverse_proxy frps:7500
+	forward_auth authelia:9091 {
+		uri /api/authz/forward-auth
+	}
+	reverse_proxy frps:7500
 }
 
-# Edit domain
 heimdall.local.local {
-  forward_auth authelia:9091 {
-    uri /api/authz/forward-auth
-    copy_headers Remote-User Remote-Groups Remote-Email Remote-Name
-  }
-  reverse_proxy heimdall:80
+	forward_auth authelia:9091 {
+		uri /api/authz/forward-auth
+	}
+	reverse_proxy heimdall:80
+}
+
+dav.local.local {
+	forward_auth authelia:9091 {
+		uri /api/authz/forward_auth
+		copy_headers Remote-User>X-Forwarded-User
+	}
+	header X-Script-Name "/"
+	reverse_proxy radicale:5232
 }
 
 # END LOCAL PROXIES
@@ -56,24 +58,21 @@ heimdall.local.local {
 
 # REMOTE PROXIES
 
-# Edit domain 
-s3.local.local {
-  reverse_proxy frps:8080
-}
+# s3.local.local {
+#   reverse_proxy frps:6789
+# }
 
-# Edit domain 
-nextcloud.local.local {
-  reverse_proxy frps:8080
-}
-
-# Edit domain 
 immich.local.local {
-  reverse_proxy frps:8080
+	reverse_proxy frps:6789
 }
 
-# Edit domain 
-vaultwarden.local.local {
-  reverse_proxy frps:8080
+owncloud.local.local {
+	header Strict-Transport-Security "max-age=15552000"
+	reverse_proxy frps:6789
 }
+
+# vaultwarden.local.local {
+# 	reverse_proxy frps:6789
+# }
 
 # END REMOTE PROXIES
