@@ -11,6 +11,8 @@ services:
   caddy:
     image: caddy:2.8.4
     restart: unless-stopped
+    environment:
+      DOMAIN: ${DOMAIN}
     ports:
       - 80:80
       - 443:443
