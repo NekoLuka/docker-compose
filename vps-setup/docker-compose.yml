@@ -42,7 +42,7 @@ services:
       - ./authelia/secrets:/secrets
 
   lldap:
-    image: lldap/lldap:2024-10-10-alpine-rootless
+    image: lldap/lldap:2024-10-10-alpine
     restart: unless-stopped
     ports:
       - 127.0.0.1:17170:17170
