@@ -37,7 +37,7 @@ authentication_backend:
     group_name_attribute: cn
     mail_attribute: mail
     display_name_attribute: displayName
-    user: uid=bind_user,ou=people,LDAP_DOMAIN
+    user: uid=authelia_bind_user,ou=people,${LDAP_BASE_DN}
 
 totp:
   issuer: Authelia # Change the name to something you want
@@ -61,14 +61,13 @@ password_policy:
 access_control:
   default_policy: 'two_factor'
   rules:
-  - domain: 'heimdall.local.local'
+  - domain: 'heimdall.${DOMAIN}'
     policy: 'one_factor'
 
 session:
   cookies:
-    # Edit the domain and the url
-    - domain: local.local
-      authelia_url: https://auth.local.local
+    - domain: ${DOMAIN}
+      authelia_url: https://auth.${DOMAIN}
       inactivity: 10m
       expiration: 2h
       remember_me: 1d

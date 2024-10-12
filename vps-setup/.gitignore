@@ -1,0 +1,10 @@
+lldap_config/*
+!lldap_config/.gitkeep
+
+authelia/config/*
+!authelia/config/configuration.yml
+authelia/secrets/*
+!authelia/secrets/.gitkeep
+
+gatus/config/*
+!gatus/config/example.config.yml
