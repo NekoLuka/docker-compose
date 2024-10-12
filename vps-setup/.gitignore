@@ -3,6 +3,7 @@ lldap_config/*
 
 authelia/config/*
 !authelia/config/configuration.yml
+!authelia/config/logs/.gitkeep
 authelia/secrets/*
 !authelia/secrets/.gitkeep
 
