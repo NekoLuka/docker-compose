@@ -53,6 +53,10 @@ dav.{$DOMAIN} {
 	reverse_proxy radicale:5232
 }
 
+joplin.{$DOMAIN} {
+	reverse_proxy joplin:22300
+}
+
 # END LOCAL PROXIES
 
 
