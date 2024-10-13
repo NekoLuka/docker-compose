@@ -47,7 +47,7 @@ heimdall.{$DOMAIN} {
 dav.{$DOMAIN} {
 	forward_auth authelia:9091 {
 		uri /api/authz/forward-auth
-		copy_headers Remote-User>X-Forwarded-User
+		copy_headers Remote-User>X-Remote-User
 	}
 	reverse_proxy radicale:5232 {
 		header_up X-Script-Name "/"
