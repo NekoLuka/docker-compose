@@ -11,3 +11,5 @@ gatus/config/*
 !gatus/config/example.config.yml
 
 radicale-data/*
+
+frps.env
