@@ -102,6 +102,7 @@ services:
       - 127.0.0.1:7500:7500 # FRP dashboard
     volumes:
       - ./frps.toml:/etc/frp/frps.toml
+    env_file: frps.env
 
   heimdall:
     image: lscr.io/linuxserver/heimdall:latest
