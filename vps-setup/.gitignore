@@ -9,3 +9,5 @@ authelia/secrets/*
 
 gatus/config/*
 !gatus/config/example.config.yml
+
+radicale-data/*
