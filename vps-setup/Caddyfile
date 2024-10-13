@@ -46,7 +46,7 @@ heimdall.{$DOMAIN} {
 
 dav.{$DOMAIN} {
 	forward_auth authelia:9091 {
-		uri /api/authz/forward_auth
+		uri /api/authz/forward-auth
 		copy_headers Remote-User>X-Forwarded-User
 	}
 	header X-Script-Name "/"
