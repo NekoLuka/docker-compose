@@ -70,14 +70,6 @@ services:
   #   volumes:
   #     - ./gatus/config:/config
 
-  # mkdocs:
-  #   image: squidfunk/mkdocs-material
-  #   restart: unless-stopped
-  #   ports:
-  #     - 127.0.0.1:8000:8000
-  #   volumes:
-  #     - MKDOCS-FILE-PATH:/docs
-
   # ntfy:
   #   image: binwiederhier/ntfy
   #   restart: unless-stopped
