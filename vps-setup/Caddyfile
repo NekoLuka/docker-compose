@@ -49,8 +49,9 @@ dav.{$DOMAIN} {
 		uri /api/authz/forward-auth
 		copy_headers Remote-User>X-Forwarded-User
 	}
-	header X-Script-Name "/"
-	reverse_proxy radicale:5232
+	reverse_proxy radicale:5232 {
+		header_up X-Script-Name "/"
+	}
 }
 
 joplin.{$DOMAIN} {
