@@ -63,6 +63,8 @@ access_control:
   rules:
   - domain: 'heimdall.${DOMAIN}'
     policy: 'one_factor'
+  - domain: 'dav.${DOMAIN}'
+    policy: 'one_factor'
 
 session:
   cookies:
