@@ -5,7 +5,6 @@ volumes:
   ntfy_cache:
   lldap_data:
   heimdall_config:
-  joplin_data:
 
 services:
   caddy:
@@ -123,6 +122,3 @@ services:
     environment:
       - APP_PORT=22300
       - APP_BASE_URL=https://joplin.${DOMAIN}
-      - STORAGE_DRIVER=Type=Filesystem; Path=/notes
-    volumes:
-      - joplin_data:/notes
