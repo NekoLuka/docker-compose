@@ -90,7 +90,7 @@ services:
     ports:
       - 7070:7070 # FRP bindport
       - 127.0.0.1:6789:6789 # FRP vhost port
-      - 127.0.0.1:7500:7500 # FRP dashboard
+      # - 127.0.0.1:7500:7500 # FRP dashboard
     volumes:
       - ./frps.toml:/etc/frp/frps.toml
     env_file: frps.env
@@ -101,14 +101,14 @@ services:
       - TZ=Etc/UTC
     volumes:
       - heimdall_config:/config
-    ports:
-      - 127.0.0.1:8088:80
+    # ports:
+    #   - 127.0.0.1:8088:80
     restart: unless-stopped
 
   radicale:
     image: trxd/radicale:3.2.3
-    ports: 
-      - "127.0.0.1:5232:5232"
+    # ports: 
+    #   - "127.0.0.1:5232:5232"
     volumes: 
       - ./radicale-data:/var/radicale
       - ./radicale.config.ini:/var/radicale/config.ini
@@ -116,8 +116,8 @@ services:
 
   joplin:
     image: joplin/server:latest
-    ports:
-      - "22300:22300"
+    # ports:
+    #   - "22300:22300"
     restart: unless-stopped
     environment:
       - APP_PORT=22300
