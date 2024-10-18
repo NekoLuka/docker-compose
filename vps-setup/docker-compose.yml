@@ -76,9 +76,9 @@ services:
   #     - serve
   #   ports:
   #     - 22500:25
-  #     - 127.0.0.1:8888:80
+  #   # - 127.0.0.1:8888:80
   #   environment:
-  #     - TZ=UTC/GMT    # optional: set desired timezone
+  #     TZ: Europe/Amsterdam    # optional: set desired timezone
   #   volumes:
   #     - ntfy_cache:/var/cache/ntfy
   #     - ntfy_config:/etc/ntfy
@@ -98,7 +98,7 @@ services:
   heimdall:
     image: lscr.io/linuxserver/heimdall:latest
     environment:
-      - TZ=Etc/UTC
+      TZ: Europe/Amsterdam
     volumes:
       - heimdall_config:/config
     # ports:
@@ -120,5 +120,5 @@ services:
     #   - "22300:22300"
     restart: unless-stopped
     environment:
-      - APP_PORT=22300
-      - APP_BASE_URL=http://joplin.${DOMAIN}
+      APP_PORT: 22300
+      APP_BASE_URL: http://joplin.${DOMAIN}
