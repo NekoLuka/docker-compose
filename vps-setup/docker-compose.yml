@@ -5,6 +5,7 @@ volumes:
   ntfy_cache:
   lldap_data:
   heimdall_config:
+  heimdall_config2:
 
 services:
   caddy:
@@ -101,6 +102,16 @@ services:
       TZ: Europe/Amsterdam
     volumes:
       - heimdall_config:/config
+    # ports:
+    #   - 127.0.0.1:8088:80
+    restart: unless-stopped
+
+  heimdall2:
+    image: lscr.io/linuxserver/heimdall:latest
+    environment:
+      TZ: Europe/Amsterdam
+    volumes:
+      - heimdall_config2:/config
     # ports:
     #   - 127.0.0.1:8088:80
     restart: unless-stopped
