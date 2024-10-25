@@ -44,6 +44,13 @@ heimdall.{$DOMAIN} {
 	reverse_proxy heimdall:80
 }
 
+private.heimdall.{$DOMAIN} {
+	forward_auth authelia:9091 {
+		uri /api/authz/forward-auth
+	}
+	reverse_proxy heimdall:80
+}
+
 dav.{$DOMAIN} {
 	forward_auth authelia:9091 {
 		uri /api/authz/forward-auth
