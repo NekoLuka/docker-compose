@@ -1,0 +1,14 @@
+version: '3.9'
+
+services:
+  homeassistant:
+    image: linuxserver/homeassistant
+    network_mode: host
+    restart: unless-stopped
+    environment:
+      - TZ=Europe/Amsterdam
+    volumes:
+      - homeassistant:/config
+
+volumes:
+  homeassistant:
