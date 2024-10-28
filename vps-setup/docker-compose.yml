@@ -6,6 +6,7 @@ volumes:
   lldap_data:
   heimdall_config:
   heimdall_config2:
+  adguard_config:
 
 services:
   caddy:
@@ -133,3 +134,13 @@ services:
     environment:
       APP_PORT: 22300
       APP_BASE_URL: http://joplin.${DOMAIN}
+
+  adguard:
+    image: adguard/adguardhome
+    ports:
+      - 53:53/tcp
+      - 53:53/udp
+      # - 80:80/tcp
+      # - 443:443/tcp
+      # - 3000:3000/tcp
+    restart: unless-stopped
