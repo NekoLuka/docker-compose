@@ -65,6 +65,10 @@ access_control:
     policy: 'one_factor'
   - domain: 'private.heimdall.${DOMAIN}'
     policy: 'one_factor'
+    subject: 'group:lldap_admin'
+  - domain: 'adguard.${DOMAIN}'
+    policy: 'two_factor'
+    subject: 'group:lldap_admin'
 
 session:
   cookies:
