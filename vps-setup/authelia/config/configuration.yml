@@ -61,14 +61,20 @@ password_policy:
 access_control:
   default_policy: 'two_factor'
   rules:
+    # Protect the dashboards
   - domain: 'heimdall.${DOMAIN}'
     policy: 'one_factor'
   - domain: 'private.heimdall.${DOMAIN}'
     policy: 'one_factor'
     subject: 'group:lldap_admin'
+  - domain: 'private.heimdall.${DOMAIN}'
+    policy: 'deny'
+    # Protect adguard
   - domain: 'adguard.${DOMAIN}'
     policy: 'two_factor'
     subject: 'group:lldap_admin'
+  - domain: 'adguard.${DOMAIN}'
+    policy: 'deny'
 
 session:
   cookies:
