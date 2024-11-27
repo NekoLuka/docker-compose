@@ -135,7 +135,7 @@ services:
     restart: unless-stopped
     environment:
       APP_PORT: 22300
-      APP_BASE_URL: http://joplin.${DOMAIN}
+      APP_BASE_URL: https://joplin.${DOMAIN}
     volumes:
       - joplin_data:/home/joplin/packages/server
 
