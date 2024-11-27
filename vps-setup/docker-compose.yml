@@ -8,6 +8,7 @@ volumes:
   heimdall_config2:
   joplin_data:
   adguard_config:
+  wikidocs_datasets:
 
 services:
   caddy:
@@ -149,3 +150,12 @@ services:
     restart: unless-stopped
     volumes:
       - adguard_config:/opt/adguardhome/conf
+
+  wikidocs:
+    image: zavy86/wikidocs
+    restart: unless-stopped
+    environment:
+      - PUID=1000
+      - PGID=1000
+    volumes:
+      - wikidocs_datasets:/datasets
