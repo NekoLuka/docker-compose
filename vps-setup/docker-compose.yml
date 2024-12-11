@@ -9,6 +9,8 @@ volumes:
   joplin_data:
   adguard_config:
   wikidocs_datasets:
+  mosquitto_data:
+  mosquitto_log:
 
 services:
   caddy:
@@ -159,3 +161,12 @@ services:
       - PGID=1000
     volumes:
       - wikidocs_datasets:/datasets
+
+  mosquitto:
+    image: eclipse-mosquitto
+    volumes:
+      - ./mosquitto:/mosquitto/config
+      - mosquitto_data:/mosquitto/data
+      - mosquitto_log:/mosquitto/log
+    ports:
+      - 1883:1883

@@ -13,3 +13,6 @@ gatus/config/*
 radicale-data/*
 
 frps.env
+
+mosquitto/certs/*
+!mosquitto/certs/.gitkeep
