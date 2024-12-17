@@ -1,5 +1,3 @@
-version: '3.9'
-
 services:
   homeassistant:
     image: linuxserver/homeassistant
@@ -10,5 +8,14 @@ services:
     volumes:
       - homeassistant:/config
 
+  nodered:
+    image: nodered/node-red:latest
+    restart: unless-stopped
+    volumes:
+      - nodered:/data
+    ports:
+      - 1880:1880
+
 volumes:
   homeassistant:
+  nodered:
