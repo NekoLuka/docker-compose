@@ -164,9 +164,16 @@ services:
 
   mosquitto:
     image: eclipse-mosquitto
+    restart: unless-stopped
     volumes:
       - ./mosquitto:/mosquitto/config
       - mosquitto_data:/mosquitto/data
       - mosquitto_log:/mosquitto/log
     ports:
       - 1883:1883
+
+  sakuradash:
+    image: nekoluka/sakuradash
+    restart: unless-stopped
+    volumes: 
+      - ./sakuradash-config.yaml:/config.yaml

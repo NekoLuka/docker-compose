@@ -17,3 +17,5 @@ frps.env
 mosquitto/pwfile
 mosquitto/certs/*
 !mosquitto/certs/.gitkeep
+
+sakuradash-config.yaml
