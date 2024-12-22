@@ -101,26 +101,6 @@ services:
       - ./frps.toml:/etc/frp/frps.toml
     env_file: frps.env
 
-  heimdall:
-    image: lscr.io/linuxserver/heimdall:latest
-    environment:
-      TZ: Europe/Amsterdam
-    volumes:
-      - heimdall_config:/config
-    # ports:
-    #   - 127.0.0.1:8088:80
-    restart: unless-stopped
-
-  heimdall2:
-    image: lscr.io/linuxserver/heimdall:latest
-    environment:
-      TZ: Europe/Amsterdam
-    volumes:
-      - heimdall_config2:/config
-    # ports:
-    #   - 127.0.0.1:8088:80
-    restart: unless-stopped
-
   radicale:
     image: trxd/radicale:3.2.3
     # ports: 
@@ -177,3 +157,16 @@ services:
     restart: unless-stopped
     volumes: 
       - ./sakuradash-config.yaml:/config.yaml
+
+  wireguard:
+    image: linuxserver/wireguard
+    restart: unless-stopped
+    cap_add:
+      - NET_ADMIN
+    environment:
+      - PUID=1000
+      - PGID=1000
+    volumes:
+      - ./wg.conf:/config/wg_confs/wg.conf
+    sysctls:
+      - net.ipv4.conf.all.src_valid_mark=1

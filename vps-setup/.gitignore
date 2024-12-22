@@ -19,3 +19,5 @@ mosquitto/certs/*
 !mosquitto/certs/.gitkeep
 
 sakuradash-config.yaml
+
+wg.conf
