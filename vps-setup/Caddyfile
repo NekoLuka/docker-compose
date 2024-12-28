@@ -26,9 +26,9 @@ ldap.{$DOMAIN} {
 #   reverse_proxy mkdocs:8000
 # }
 
-# ntfy.{$DOMAIN} {
-# 	reverse_proxy ntfy:80
-# }
+ntfy.{$DOMAIN} {
+	reverse_proxy ntfy:80
+}
 
 frp.{$DOMAIN} {
 	forward_auth authelia:9091 {
@@ -37,19 +37,19 @@ frp.{$DOMAIN} {
 	reverse_proxy frps:7500
 }
 
-heimdall.{$DOMAIN} {
-	forward_auth authelia:9091 {
-		uri /api/authz/forward-auth
-	}
-	reverse_proxy heimdall:80
-}
+# heimdall.{$DOMAIN} {
+# 	forward_auth authelia:9091 {
+# 		uri /api/authz/forward-auth
+# 	}
+# 	reverse_proxy heimdall:80
+# }
 
-private.heimdall.{$DOMAIN} {
-	forward_auth authelia:9091 {
-		uri /api/authz/forward-auth
-	}
-	reverse_proxy heimdall2:80
-}
+# private.heimdall.{$DOMAIN} {
+# 	forward_auth authelia:9091 {
+# 		uri /api/authz/forward-auth
+# 	}
+# 	reverse_proxy heimdall2:80
+# }
 
 dash.{$DOMAIN} {
 	forward_auth authelia:9091 {
@@ -100,10 +100,10 @@ immich.{$DOMAIN} {
 	reverse_proxy frps:6789
 }
 
-owncloud.{$DOMAIN} {
-	header Strict-Transport-Security "max-age=15552000"
-	reverse_proxy frps:6789
-}
+# owncloud.{$DOMAIN} {
+# 	header Strict-Transport-Security "max-age=15552000"
+# 	reverse_proxy frps:6789
+# }
 
 # vaultwarden.{$DOMAIN} {
 # 	reverse_proxy frps:6789

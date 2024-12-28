@@ -6,6 +6,7 @@ volumes:
   lldap_data:
   heimdall_config:
   heimdall_config2:
+  # radicale_data:
   joplin_data:
   adguard_config:
   wikidocs_datasets:
@@ -75,20 +76,22 @@ services:
   #   volumes:
   #     - ./gatus/config:/config
 
-  # ntfy:
-  #   image: binwiederhier/ntfy
-  #   restart: unless-stopped
-  #   command:
-  #     - serve
-  #   ports:
-  #     - 22500:25
-  #   # - 127.0.0.1:8888:80
-  #   environment:
-  #     TZ: Europe/Amsterdam    # optional: set desired timezone
-  #   volumes:
-  #     - ntfy_cache:/var/cache/ntfy
-  #     - ntfy_config:/etc/ntfy
-  #     - ./ntfy-server.yml:/etc/ntfy/server.yml
+  ntfy:
+    image: binwiederhier/ntfy
+    restart: unless-stopped
+    command:
+      - serve
+    ports:
+      - 22500:25
+      # - 127.0.0.1:8888:80
+    environment:
+      TZ: Europe/Amsterdam    # optional: set desired timezone
+      NTFY_BASE_URL: https://ntfy.${DOMAIN}
+      NTFY_SMTP_SERVER_DOMAIN: ntfy.${DOMAIN}
+    volumes:
+      - ntfy_cache:/var/cache/ntfy
+      - ntfy_config:/etc/ntfy
+      - ./ntfy-server.yml:/etc/ntfy/server.yml
 
   frps:
     image: snowdreamtech/frps:0.57.0
@@ -101,14 +104,14 @@ services:
       - ./frps.toml:/etc/frp/frps.toml
     env_file: frps.env
 
-  radicale:
-    image: trxd/radicale:3.2.3
-    # ports: 
-    #   - "127.0.0.1:5232:5232"
-    volumes: 
-      - ./radicale-data:/var/radicale
-      - ./radicale.config.ini:/var/radicale/config.ini
-    restart: unless-stopped
+  # radicale:
+  #   image: trxd/radicale:3.2.3
+  #   # ports: 
+  #   #   - "127.0.0.1:5232:5232"
+  #   volumes: 
+  #     - radicale_data:/var/radicale
+  #     - ./radicale.config.ini:/var/radicale/config.ini
+  #   restart: unless-stopped
 
   joplin:
     image: joplin/server:latest
