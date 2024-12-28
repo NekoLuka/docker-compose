@@ -5,8 +5,10 @@ services:
     restart: unless-stopped
     environment:
       - TZ=Europe/Amsterdam
+      - PUID=1000
+      - PGID=1000
     volumes:
-      - homeassistant:/config
+      - ./config:/config
 
   nodered:
     image: nodered/node-red:latest
