@@ -19,9 +19,7 @@ services:
     restart: unless-stopped
     environment:
       DOMAIN: ${DOMAIN}
-    ports:
-      - 80:80
-      - 443:443
+    network_mode: service:wireguard
     volumes:
       - caddy_data:/data
       - caddy_config:/config
@@ -167,8 +165,11 @@ services:
     cap_add:
       - NET_ADMIN
     environment:
-      - PUID=1000
-      - PGID=1000
+      - PUID=1001
+      - PGID=1001
+    ports:
+      - 80:80
+      - 443:443
     volumes:
       - ./wg.conf:/config/wg_confs/wg.conf
     sysctls:
