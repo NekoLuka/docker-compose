@@ -15,3 +15,5 @@ services:
     environment:
       TZ: Europe/Amsterdam
       CRON_MIN: '3,33'
+    ports:
+      - 8080:80
