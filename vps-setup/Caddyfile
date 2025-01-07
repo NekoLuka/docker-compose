@@ -15,7 +15,7 @@ gatus.{$DOMAIN} {
 	forward_auth authelia:9091 {
 		uri /api/authz/forward-auth
 	}
-	reverse_proxy gatus:8080
+	reverse_proxy 127.0.0.1:8080
 }
 
 ntfy.{$DOMAIN} {
