@@ -66,13 +66,14 @@ services:
       - lldap_data:/data
       - ./lldap_config:/secrets
 
-  # gatus:
-  #   image: twinproduction/gatus:v5.12.1
-  #   restart: unless-stopped
-  #   ports:
-  #     - 127.0.0.1:8080:8080
-  #   volumes:
-  #     - ./gatus/config:/config
+  gatus:
+    image: twinproduction/gatus:v5.12.1
+    restart: unless-stopped
+    # ports:
+    #   - 127.0.0.1:8080:8080
+    network_mode: service:wireguard
+    volumes:
+      - ./gatus/config:/config
 
   ntfy:
     image: binwiederhier/ntfy
