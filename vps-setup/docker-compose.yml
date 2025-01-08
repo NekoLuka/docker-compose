@@ -4,11 +4,7 @@ volumes:
   ntfy_config:
   ntfy_cache:
   lldap_data:
-  heimdall_config:
-  heimdall_config2:
   # radicale_data:
-  joplin_data:
-  adguard_config:
   wikidocs_datasets:
   mosquitto_data:
   mosquitto_log:
@@ -100,29 +96,6 @@ services:
   #     - radicale_data:/var/radicale
   #     - ./radicale.config.ini:/var/radicale/config.ini
   #   restart: unless-stopped
-
-  joplin:
-    image: joplin/server:latest
-    # ports:
-    #   - "22300:22300"
-    restart: unless-stopped
-    environment:
-      APP_PORT: 22300
-      APP_BASE_URL: https://joplin.${DOMAIN}
-    volumes:
-      - joplin_data:/home/joplin/packages/server
-
-  adguard:
-    image: adguard/adguardhome
-    ports:
-      - 5353:53/tcp
-      - 5353:53/udp
-      # - 80:80/tcp
-      # - 443:443/tcp
-      # - 3000:3000/tcp
-    restart: unless-stopped
-    volumes:
-      - adguard_config:/opt/adguardhome/conf
 
   wikidocs:
     image: zavy86/wikidocs
