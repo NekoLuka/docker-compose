@@ -21,3 +21,4 @@ mosquitto/certs/*
 sakuradash-config.yaml
 
 wg.conf
+wg-backup.conf
