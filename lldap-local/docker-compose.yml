@@ -1,6 +1,6 @@
 services:
   lldap:
-    image: lldap/lldap:2025-1-29-alpine
+    image: lldap/lldap:2025-01-29-alpine
     restart: unless-stopped
     ports:
       - 17170:17170
