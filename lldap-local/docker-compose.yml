@@ -1,0 +1,21 @@
+services:
+  lldap:
+    image: lldap/lldap:2025-1-29-alpine
+    restart: unless-stopped
+    ports:
+      - 17170:17170
+      - 3890:3890
+    environment:
+      UID: 1000
+      GID: 1000
+      TZ: Europe/Amsterdam
+      LLDAP_JWT_SECRET_FILE: /secrets/JWT_SECRET
+      LLDAP_LDAP_USER_PASS_FILE: /secrets/ADMIN_PASS
+      LLDAP_KEY_SEED: Kn3NErqOdOvaKHgBrtp8
+      LLDAP_LDAP_BASE_DN: ${LDAP_BASE_DN}
+    volumes:
+      - lldap_data:/data
+      - ./lldap_config:/secrets
+
+volumes:
+  lldap_data:
