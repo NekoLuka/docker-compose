@@ -99,14 +99,15 @@ services:
       - ntfy_config:/etc/ntfy
       - ./ntfy-server.yml:/etc/ntfy/server.yml
 
-  # radicale:
-  #   image: trxd/radicale:3.2.3
-  #   # ports:
-  #   #   - "127.0.0.1:5232:5232"
-  #   volumes:
-  #     - radicale_data:/var/radicale
-  #     - ./radicale.config.ini:/var/radicale/config.ini
-  #   restart: unless-stopped
+  radicale:
+    image: nekoluka/radicale:3.4.1
+    environment:
+      BASE_DN: ${LDAP_BASE_DN}
+    volumes:
+      - radicale_data:/var/radicale
+      - ./radicale.config.ini:/var/radicale/config.ini
+      - ./radicale-secret.txt:/radicale-secret.txt
+    restart: unless-stopped
 
   wikidocs:
     image: zavy86/wikidocs
