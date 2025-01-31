@@ -4,7 +4,7 @@ volumes:
   ntfy_config:
   ntfy_cache:
   lldap_data:
-  # radicale_data:
+  radicale_data:
   wikidocs_datasets:
   mosquitto_data:
   mosquitto_log:
