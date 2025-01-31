@@ -64,12 +64,6 @@ access_control:
     # Protect the dashboard
   - domain: 'dash.${DOMAIN}'
     policy: 'one_factor'
-    # Protect adguard
-  - domain: 'adguard.${DOMAIN}'
-    policy: 'two_factor'
-    subject: 'group:lldap_admin'
-  - domain: 'adguard.${DOMAIN}'
-    policy: 'deny'
     # Protect gatus
   - domain: 'gatus.${DOMAIN}'
     policy: 'bypass'

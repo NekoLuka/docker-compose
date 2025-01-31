@@ -9,6 +9,17 @@ volumes:
   mosquitto_data:
   mosquitto_log:
 
+networks:
+  default:
+    driver: bridge
+    ipam:
+      driver: default
+      config:
+        - subnet: 172.18.0.0/24
+          gateway: 172.18.0.1
+  wgnet: # Subnet 172.20.0.0/24
+    external: true
+
 services:
   caddy:
     image: caddy:2.8.4
@@ -90,9 +101,9 @@ services:
 
   # radicale:
   #   image: trxd/radicale:3.2.3
-  #   # ports: 
+  #   # ports:
   #   #   - "127.0.0.1:5232:5232"
-  #   volumes: 
+  #   volumes:
   #     - radicale_data:/var/radicale
   #     - ./radicale.config.ini:/var/radicale/config.ini
   #   restart: unless-stopped
@@ -100,9 +111,6 @@ services:
   wikidocs:
     image: zavy86/wikidocs
     restart: unless-stopped
-    environment:
-      - PUID=1000
-      - PGID=1000
     volumes:
       - wikidocs_datasets:/datasets
 
@@ -119,7 +127,7 @@ services:
   sakuradash:
     image: nekoluka/sakuradash
     restart: unless-stopped
-    volumes: 
+    volumes:
       - ./sakuradash-config.yaml:/config.yaml
 
   wireguard:
@@ -135,5 +143,11 @@ services:
       - 443:443
     volumes:
       - ./wg.conf:/config/wg_confs/wg.conf
+      - ./wg-backup.conf:/config/wg_confs/wg-backup.conf
     sysctls:
       - net.ipv4.conf.all.src_valid_mark=1
+    networks:
+      default:
+        ipv4_address: 172.18.0.50
+      wgnet:
+        ipv4_address: 172.20.0.50

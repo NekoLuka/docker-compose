@@ -22,13 +22,6 @@ ntfy.{$DOMAIN} {
 	reverse_proxy ntfy:80
 }
 
-# frp.{$DOMAIN} {
-# 	forward_auth authelia:9091 {
-# 		uri /api/authz/forward-auth
-# 	}
-# 	reverse_proxy frps:7500
-# }
-
 dash.{$DOMAIN} {
 	forward_auth authelia:9091 {
 		uri /api/authz/forward-auth
@@ -37,26 +30,15 @@ dash.{$DOMAIN} {
 	reverse_proxy sakuradash:8080
 }
 
-# dav.{$DOMAIN} {
-# 	forward_auth authelia:9091 {
-# 		uri /api/authz/forward-auth
-# 		copy_headers Remote-User>X-Remote-User
-# 	}
-# 	reverse_proxy radicale:5232 {
-# 		header_up X-Script-Name "/"
-# 	}
-# }
-
-joplin.{$DOMAIN} {
-	reverse_proxy joplin:22300
-}
-
-adguard.{$DOMAIN} {
-	forward_auth authelia:9091 {
-		uri /api/authz/forward-auth
+dav.{$DOMAIN} {
+	reverse_proxy radicale:5232 {
+		header_up X-Script-Name "/"
 	}
-	reverse_proxy adguard:80
 }
+
+# joplin.{$DOMAIN} {
+# 	reverse_proxy joplin:22300
+# }
 
 docs.{$DOMAIN} {
 	forward_auth authelia:9091 {
@@ -70,21 +52,12 @@ docs.{$DOMAIN} {
 
 # REMOTE PROXIES
 
-# s3.{$DOMAIN} {
-#   reverse_proxy frps:6789
-# }
-
 # immich.{$DOMAIN} {
-# 	reverse_proxy frps:6789
-# }
-
-# owncloud.{$DOMAIN} {
-# 	header Strict-Transport-Security "max-age=15552000"
-# 	reverse_proxy frps:6789
+#       reverse_proxy frps:6789
 # }
 
 # vaultwarden.{$DOMAIN} {
-# 	reverse_proxy frps:6789
+#       reverse_proxy frps:6789
 # }
 
 # END REMOTE PROXIES
