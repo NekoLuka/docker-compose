@@ -104,7 +104,7 @@ services:
     environment:
       BASE_DN: ${LDAP_BASE_DN}
     volumes:
-      - radicale_data:/var/radicale
+      - radicale_data:/var/lib/radicale
       - ./radicale.config.ini:/var/radicale/config.ini
       - ./radicale-secret.txt:/radicale-secret.txt
     restart: unless-stopped
