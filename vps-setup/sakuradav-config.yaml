@@ -1,0 +1,10 @@
+serverBindString: ":9090"
+fileRootDir: /webdav
+ldapConfig:
+  connectionString: ldap://lldap:3890
+  DNTemplate: uid=%s,ou=people,dc=nekoluka,dc=nl
+joplinConfig:
+  isEnabled: false
+regularWebDav:
+  isEnabled: true
+  authenticated: true

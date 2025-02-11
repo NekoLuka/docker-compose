@@ -8,6 +8,7 @@ volumes:
   wikidocs_datasets:
   mosquitto_data:
   mosquitto_log:
+  sakuradav_data:
 
 networks:
   default:
@@ -55,9 +56,8 @@ services:
   lldap:
     image: lldap/lldap:2024-10-10-alpine
     restart: unless-stopped
-    ports:
-      - 127.0.0.1:17170:17170
-      - 6360:6360
+    # ports:
+    #   - 127.0.0.1:17170:17170
     environment:
       UID: 1001
       GID: 1001
@@ -124,6 +124,15 @@ services:
       - mosquitto_log:/mosquitto/log
     ports:
       - 1883:1883
+
+  sakuradav:
+    image: nekoluka/sakuradav:0.1.1
+    restart: unless-stopped
+    environment:
+      SAKURA_CONFIG: /config.yaml
+    volumes:
+      - ./sakuradav-config.yaml:/config.yaml
+      - sakuradav_data:/webdav
 
   sakuradash:
     image: nekoluka/sakuradash
