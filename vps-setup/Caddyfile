@@ -36,9 +36,9 @@ dav.{$DOMAIN} {
 	}
 }
 
-# joplin.{$DOMAIN} {
-# 	reverse_proxy joplin:22300
-# }
+joplin.{$DOMAIN} {
+	reverse_proxy sakuradav:9090
+}
 
 docs.{$DOMAIN} {
 	forward_auth authelia:9091 {
