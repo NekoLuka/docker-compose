@@ -6,15 +6,6 @@ volumes:
   wikidocs_datasets:
   sakuradav_data:
 
-networks:
-  default:
-    driver: bridge
-    ipam:
-      driver: default
-      config:
-        - subnet: 172.18.0.0/24
-          gateway: 172.18.0.1
-
 services:
   caddy:
     image: caddy:2.8.4
