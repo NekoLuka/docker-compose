@@ -78,22 +78,6 @@ services:
     volumes:
       - ./gatus/config:/config
 
-  ntfy:
-    image: binwiederhier/ntfy
-    restart: unless-stopped
-    command:
-      - serve
-    ports:
-      - 22500:25
-    environment:
-      TZ: Europe/Amsterdam
-      NTFY_BASE_URL: https://ntfy.${DOMAIN}
-      NTFY_SMTP_SERVER_DOMAIN: ntfy.${DOMAIN}
-    volumes:
-      - ntfy_cache:/var/cache/ntfy
-      - ntfy_config:/etc/ntfy
-      - ./ntfy-server.yml:/etc/ntfy/server.yml
-
   radicale:
     image: nekoluka/radicale:3.4.1
     environment:
