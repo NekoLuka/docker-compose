@@ -74,7 +74,6 @@ services:
   gatus:
     image: twinproduction/gatus:v5.15.0
     restart: unless-stopped
-    network_mode: service:wireguard
     volumes:
       - ./gatus/config:/config
 
