@@ -56,8 +56,6 @@ services:
   lldap:
     image: lldap/lldap:2024-10-10-alpine
     restart: unless-stopped
-    # ports:
-    #   - 127.0.0.1:17170:17170
     environment:
       UID: 1001
       GID: 1001
@@ -76,8 +74,6 @@ services:
   gatus:
     image: twinproduction/gatus:v5.15.0
     restart: unless-stopped
-    # ports:
-    #   - 127.0.0.1:8080:8080
     network_mode: service:wireguard
     volumes:
       - ./gatus/config:/config
@@ -89,9 +85,8 @@ services:
       - serve
     ports:
       - 22500:25
-      # - 127.0.0.1:8888:80
     environment:
-      TZ: Europe/Amsterdam    # optional: set desired timezone
+      TZ: Europe/Amsterdam
       NTFY_BASE_URL: https://ntfy.${DOMAIN}
       NTFY_SMTP_SERVER_DOMAIN: ntfy.${DOMAIN}
     volumes:
@@ -114,16 +109,6 @@ services:
     restart: unless-stopped
     volumes:
       - wikidocs_datasets:/datasets
-
-  mosquitto:
-    image: eclipse-mosquitto
-    restart: unless-stopped
-    volumes:
-      - ./mosquitto:/mosquitto/config
-      - mosquitto_data:/mosquitto/data
-      - mosquitto_log:/mosquitto/log
-    ports:
-      - 1883:1883
 
   sakuradav:
     image: nekoluka/sakuradav:0.1.1
