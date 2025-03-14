@@ -54,6 +54,8 @@ services:
       LLDAP_LDAPS_OPTIONS__ENABLED: true
       LLDAP_LDAPS_OPTIONS__CERT_FILE: /secrets/certificate.crt
       LLDAP_LDAPS_OPTIONS__KEY_FILE: /secrets/private.key
+    ports:
+      - 10.10.200.2:3890:3890
     volumes:
       - lldap_data:/data
       - ./lldap_config:/secrets
