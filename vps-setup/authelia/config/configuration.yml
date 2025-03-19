@@ -86,6 +86,7 @@ identity_providers:
     authorization_policies:
         linkwarden:
           default_policy: 'two_factor'
+          rules: []
     clients:
       - client_id: linkwarden
         client_name: Linkwarden
