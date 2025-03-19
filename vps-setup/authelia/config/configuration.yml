@@ -91,6 +91,7 @@ identity_providers:
         client_name: Linkwarden
         client_secret: '$pbkdf2-sha512$310000$pexgG6zdX4GNhvdvHS8DOw$.u6Mp/mQOyprqpBw2Eq19t/VrBXILo1hAwzhtAAfx04p2LUid0FZJZ8ffkUJnbMXTYa4Pf8PL8/IiW2XtJ6pRg'
         public: false
+        authorization_policy: 'default'
         consent_mode: implicit
         scopes:
           - openid
