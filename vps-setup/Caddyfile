@@ -1,6 +1,9 @@
 # LOCAL PROXIES
 
 auth.{$DOMAIN} {
+	handle /.well-known/* {
+		uri strip_suffix /
+	}
 	reverse_proxy authelia:9091
 }
 

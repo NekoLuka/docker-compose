@@ -86,7 +86,7 @@ identity_providers:
     clients:
       - client_id: linkwarden
         client_name: Linkwarden
-        client_secret: '$pbkdf2-sha512$310000$pexgG6zdX4GNhvdvHS8DOw$.u6Mp/mQOyprqpBw2Eq19t/VrBXILo1hAwzhtAAfx04p2LUid0FZJZ8ffkUJnbMXTYa4Pf8PL8/IiW2XtJ6pRg'
+        client_secret: {{ secret "/secrets/linkwarden_client_secret" }}
         public: false
         authorization_policy: 'two_factor'
         consent_mode: implicit
