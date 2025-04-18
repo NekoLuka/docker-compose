@@ -1,7 +1,0 @@
-services:
-  ftp2sftp:
-    build: .
-    ports:
-      - "2121:2121"
-    env_file: ".env"
-    command: "--ftp user:password@0.0.0.0:2121:/ftp-dir --sftp ${SFTP_STRING}"
