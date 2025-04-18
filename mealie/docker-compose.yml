@@ -1,0 +1,30 @@
+services:
+  mealie:
+    image: ghcr.io/mealie-recipes/mealie:v2.8.0
+    restart: unless-stopped
+    ports:
+        - 9000:9000
+    deploy:
+      resources:
+        limits:
+          memory: 1000M
+    volumes:
+      - mealie-data:/app/data/
+    environment:
+      PUID: 1000
+      PGID: 1000
+      TZ: Europe/Amsterdam
+      BASE_URL: http://mealie.lan:9000
+      LDAP_AUTH_ENABLED: true
+      LDAP_SERVER_URL: ldap://vps.lan:3890
+      LDAP_BASE_DN: "DC=nekoluka,DC=nl"
+      LDAP_QUERY_BIND: ${LDAP_BIND_USER}
+      LDAP_QUERY_PASSWORD: ${LDAP_BIND_PASSWORD}
+      LDAP_USER_FILTER: "(memberOf=cn=mealie_user,ou=groups,dc=nekoluka,dc=nl)"
+      LDAP_ADMIN_FILTER: "(memberOf=cn=lldap_admin,ou=groups,dc=nekoluka,dc=nl)"
+      LDAP_ID_ATTRIBUTE: uid
+      LDAP_NAME_ATTRIBUTE: first_name
+      LDAP_MAIL_ATTRIBUTE: mail
+
+volumes:
+  mealie-data:
