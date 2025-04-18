@@ -51,15 +51,7 @@ docs.{$DOMAIN} {
 
 # REMOTE PROXIES
 
-linkwarden.{$DOMAIN} {
-	reverse_proxy 192.168.20.17:3000
-}
-
 # immich.{$DOMAIN} {
-#       reverse_proxy frps:6789
-# }
-
-# vaultwarden.{$DOMAIN} {
 #       reverse_proxy frps:6789
 # }
 

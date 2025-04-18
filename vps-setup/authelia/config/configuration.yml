@@ -83,18 +83,4 @@ identity_providers:
     jwks:
       - key_id: 'default'
         key: {{ secret "/secrets/private.pem" | mindent 10 "|" | msquote }}
-    clients:
-      - client_id: linkwarden
-        client_name: Linkwarden
-        client_secret: {{ secret "/secrets/linkwarden_client_secret" }}
-        public: false
-        authorization_policy: 'two_factor'
-        consent_mode: implicit
-        scopes:
-          - openid
-          - groups
-          - email
-          - profile
-        redirect_uris:
-          - https://linkwarden.${DOMAIN}/api/v1/auth/callback/authelia
-        userinfo_signed_response_alg: none
+    clients: []
