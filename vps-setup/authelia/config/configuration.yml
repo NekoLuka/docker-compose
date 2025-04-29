@@ -24,20 +24,15 @@ authentication_backend:
   ldap:
     address: ldap://lldap:3890
     implementation: lldap
-    base_dn: ${LDAP_BASE_DN}
+    base_dn: '{{ env "LDAP_BASE_DN" }}'
     users_filter: "(&(|({username_attribute}={input})({mail_attribute}={input}))(objectClass=person))"
     groups_filter: "(&(member={dn})(objectClass=groupOfNames))"
-    user: uid=authelia_bind_user,ou=people,${LDAP_BASE_DN}
-    attributes:
-      picture: jpegPhoto
-
-totp:
-  issuer: Authelia # Change the name to something you want
+    user: 'uid=authelia_bind_user,ou=people,{{ env "LDAP_BASE_DN" }}'
 
 webauthn:
-  display_name: Authelia # Change the name to something you want
   attestation_conveyance_preference: indirect
-  user_verification: preferred
+  selection_criteria:
+    user_verification: preferred
   timeout: 60s
 
 regulation:
@@ -53,19 +48,19 @@ password_policy:
 access_control:
   default_policy: 'two_factor'
   rules:
-    # Protect the dashboard
-  - domain: 'dash.${DOMAIN}'
-    policy: 'one_factor'
-    # Protect gatus
-  - domain: 'gatus.${DOMAIN}'
-    policy: 'bypass'
-    resources:
-    - '^/api/v1/endpoints/[a-z\-_]+/uptimes/24h/badge\.svg$'
+      # Protect the dashboard
+    - domain: 'dash.{{ env "DOMAIN" }}'
+      policy: 'one_factor'
+      # Protect gatus
+    - domain: 'gatus.{{ env "DOMAIN" }}'
+      policy: 'bypass'
+      resources:
+        - '^/api/v1/endpoints/[a-z\-_]+/uptimes/24h/badge\.svg$'
 
 session:
   cookies:
-    - domain: ${DOMAIN}
-      authelia_url: https://auth.${DOMAIN}
+    - domain: '{{ env "DOMAIN" }}'
+      authelia_url: 'https://auth.{{ env "DOMAIN" }}'
       inactivity: 10m
       expiration: 2h
       remember_me: 1d
@@ -77,6 +72,6 @@ identity_providers:
         key: {{ secret "/secrets/private.pem" | mindent 10 "|" | msquote }}
     clients:
       - client_id: ij3Nm6CB7t2dUFVyyxZCFyhucovj6S
-        client_secret: 1yty2iGmCy14ip9uAE7bXisnv0sHRBx6LRuJDgYEVJo8dWXdpHqZdkUecohQHMX4
+        client_secret: $pbkdf2-sha512$310000$jRQM8/IxQqtVXV6L0cSr1Q$mE0F1Z2dYX9JD/C6RfoyRlrZq7z6I2sBFVjf6Zr0NUFaojR7nYP5PK15nZleTEqYocPi/4UWG4fj/aPI7TDxXg
         redirect_uris:
           - 'https://example.com'
