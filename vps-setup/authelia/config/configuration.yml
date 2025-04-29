@@ -77,5 +77,6 @@ identity_providers:
         key: {{ secret "/secrets/private.pem" | mindent 10 "|" | msquote }}
     clients:
       - client_id: ij3Nm6CB7t2dUFVyyxZCFyhucovj6S
+        client_secret: 1yty2iGmCy14ip9uAE7bXisnv0sHRBx6LRuJDgYEVJo8dWXdpHqZdkUecohQHMX4
         redirect_uris:
           - 'https://example.com'
