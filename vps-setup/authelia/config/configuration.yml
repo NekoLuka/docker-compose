@@ -75,4 +75,3 @@ identity_providers:
     jwks:
       - key_id: 'default'
         key: {{ secret "/secrets/private.pem" | mindent 10 "|" | msquote }}
-    clients: []
