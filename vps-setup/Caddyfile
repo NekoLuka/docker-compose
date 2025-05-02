@@ -1,3 +1,11 @@
+# Caddy config
+
+log {
+	output file /etc/caddy/caddy.log {
+		mode 644
+	}
+}
+
 # LOCAL PROXIES
 
 auth.{$DOMAIN} {
