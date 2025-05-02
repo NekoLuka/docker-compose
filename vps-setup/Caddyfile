@@ -11,6 +11,7 @@
 # LOCAL PROXIES
 
 auth.{$DOMAIN} {
+	log
 	handle /.well-known/* {
 		uri strip_suffix /
 	}
@@ -18,6 +19,7 @@ auth.{$DOMAIN} {
 }
 
 ldap.{$DOMAIN} {
+	log
 	forward_auth authelia:9091 {
 		uri /api/authz/forward-auth
 	}
@@ -25,6 +27,7 @@ ldap.{$DOMAIN} {
 }
 
 gatus.{$DOMAIN} {
+	log
 	forward_auth authelia:9091 {
 		uri /api/authz/forward-auth
 	}
@@ -32,6 +35,7 @@ gatus.{$DOMAIN} {
 }
 
 dash.{$DOMAIN} {
+	log
 	forward_auth authelia:9091 {
 		uri /api/authz/forward-auth
 		copy_headers Remote-Groups
@@ -40,16 +44,19 @@ dash.{$DOMAIN} {
 }
 
 dav.{$DOMAIN} {
+	log
 	reverse_proxy radicale:5232 {
 		header_up X-Script-Name "/"
 	}
 }
 
 joplin.{$DOMAIN} {
+	log
 	reverse_proxy sakuradav:9090
 }
 
 docs.{$DOMAIN} {
+	log
 	forward_auth authelia:9091 {
 		uri /api/authz/forward-auth
 	}
