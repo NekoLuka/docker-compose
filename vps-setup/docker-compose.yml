@@ -3,7 +3,6 @@ volumes:
   caddy_config:
   lldap_data:
   radicale_data:
-  wikidocs_datasets:
   sakuradav_data:
 
 services:
@@ -20,6 +19,7 @@ services:
       - caddy_config:/config
       - ./Caddyfile:/etc/caddy/Caddyfile
       - ./caddy.log:/etc/caddy/caddy.log
+      - ./caddy/docs:/docs
 
   authelia:
     image: authelia/authelia:4.39.1
@@ -74,12 +74,6 @@ services:
       - ./radicale.config.ini:/var/radicale/config.ini
       - ./radicale-secret.txt:/radicale-secret.txt
     restart: unless-stopped
-
-  wikidocs:
-    image: zavy86/wikidocs
-    restart: unless-stopped
-    volumes:
-      - wikidocs_datasets:/datasets
 
   sakuradav:
     image: nekoluka/sakuradav:0.1.1

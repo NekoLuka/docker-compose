@@ -60,7 +60,8 @@ docs.{$DOMAIN} {
 	forward_auth authelia:9091 {
 		uri /api/authz/forward-auth
 	}
-	reverse_proxy wikidocs:80
+	root /docs
+	file_server
 }
 
 # END LOCAL PROXIES
