@@ -89,3 +89,11 @@ services:
     restart: unless-stopped
     volumes:
       - ./sakuradash-config.yaml:/config.yaml
+
+  duplicati:
+    image: duplicati/duplicati:2.1.0.119
+    restart: unless-stopped
+    volumes:
+      - lldap_data:/lldap
+      - sakuradav_data:/sakuradav
+      - radicale_data:/radicale

@@ -64,6 +64,15 @@ docs.{$DOMAIN} {
 	file_server
 }
 
+duplicati.{$DOMAIN} {
+	log
+	forward_auth authelia:9091 {
+		uri /api/authz/forward-auth
+		copy_headers Remote-Groups
+	}
+	reverse_proxy duplicati:8200
+}
+
 # END LOCAL PROXIES
 
 
