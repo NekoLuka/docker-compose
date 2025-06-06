@@ -5,6 +5,7 @@ volumes:
   radicale_data:
   sakuradav_data:
   duplicati_data:
+  duplicati_backups:
 
 services:
   caddy:
@@ -92,10 +93,16 @@ services:
       - ./sakuradash-config.yaml:/config.yaml
 
   duplicati:
-    image: duplicati/duplicati:2.1.0.119
-    restart: unless-stopped
+    image: linuxserver/duplicati:2.1.0
+    environment:
+      - PUID=1000
+      - PGID=1000
+      - TZ=Europe/Amsterdam
+      - SETTINGS_ENCRYPTION_KEY=dYHGsHnljbcKpCbx0pkY
     volumes:
-      - lldap_data:/lldap
-      - sakuradav_data:/sakuradav
-      - radicale_data:/radicale
-      - duplicati_data:/data
+      - duplicati_data:/config
+      - duplicati_backups:/backups
+      - lldap_data:/source/lldap
+      - sakuradav_data:/source/sakuradav
+      - radicale_data:/source/radicale
+    restart: unless-stopped
