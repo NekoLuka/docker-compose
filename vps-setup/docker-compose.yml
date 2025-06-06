@@ -4,6 +4,7 @@ volumes:
   lldap_data:
   radicale_data:
   sakuradav_data:
+  duplicati_data:
 
 services:
   caddy:
@@ -97,3 +98,4 @@ services:
       - lldap_data:/lldap
       - sakuradav_data:/sakuradav
       - radicale_data:/radicale
+      - duplicati_data:/data
